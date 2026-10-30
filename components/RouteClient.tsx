@@ -92,7 +92,7 @@ export default function RouteClient({ data }: { data: PandalPassData }) {
           <p className="eyebrow">Route map</p>
           <h1>Your night, on the map</h1>
           <p>
-            {pass.pandalIds.length} pandals · {fmtDur(pass.totalMins)} · {fmtKm(pass.walkKm)} walking · crowd,
+            {pass.pandalIds.length} pandals A? {fmtDur(pass.totalMins)} A? {fmtKm(pass.walkKm)} walking A? crowd,
             time and cost are estimates.
           </p>
         </div>
@@ -165,7 +165,7 @@ export default function RouteClient({ data }: { data: PandalPassData }) {
                     <span className="route-list__num">S</span>
                     <span>
                       <strong>{pass.startPoint.name}</strong>
-                      <small>Start · meeting point</small>
+                      <small>Start A? meeting point</small>
                     </span>
                   </button>
                 </li>

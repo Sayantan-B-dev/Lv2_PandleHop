@@ -37,7 +37,6 @@
   ],
   "exclude": [
     "node_modules",
-    "ref-basic",
-    "ref-image"
+    "legacy"
   ]
 }

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FoodCard from "@/components/FoodCard";
-import { getData } from "@/lib/data";
+import { getProductData } from "@/lib/repository";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Food Stops",
   description: "Food stops for a Kolkata Pujo night: bhog, phuchka, rolls, mishti and late-night cha.",
 };
 
-export default function FoodPage() {
-  const data = getData();
+export default async function FoodPage() {
+  const data = await getProductData();
   return (
     <div className="page food-page">
       <div className="shell">

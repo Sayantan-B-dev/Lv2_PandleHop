@@ -3,12 +3,14 @@ import FoodCard from "@/components/FoodCard";
 import Icon from "@/components/Icon";
 import Marquee from "@/components/Marquee";
 import PandalCard from "@/components/PandalCard";
-import { getData } from "@/lib/data";
+import { getProductData } from "@/lib/repository";
 import { fmtClock, fmtDur, fmtKm, fmtRupees } from "@/lib/format";
 import { generatePass } from "@/lib/itinerary";
 
-export default function HomePage() {
-  const data = getData();
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const data = await getProductData();
   const pass = generatePass(data, data.defaultPrefs);
   const picks = data.home.pickIds
     .map((id) => data.pandals.find((pandal) => pandal.id === id))

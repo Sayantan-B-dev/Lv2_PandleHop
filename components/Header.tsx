@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import AccountNav from "@/components/AccountNav";
 import Icon from "@/components/Icon";
 
 const links = [
@@ -71,6 +72,7 @@ export default function Header({ siteName }: { siteName: string }) {
               </Link>
             );
           })}
+          <AccountNav />
         </nav>
 
         <div className="site-header__actions">

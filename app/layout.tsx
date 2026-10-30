@@ -3,7 +3,7 @@ import { Archivo_Black, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { getData } from "@/lib/data";
+import { getProductData } from "@/lib/repository";
 import "./globals.css";
 
 const display = Archivo_Black({
@@ -29,14 +29,16 @@ export const metadata: Metadata = {
     "PandalPass is a personalised Durga Pujo route planner for Kolkata. Build a pandal-hopping night that fits your time, taste and travel style.",
 };
 
+export const dynamic = "force-dynamic";
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: "#7a1024",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  const data = getData();
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const data = await getProductData();
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <body>

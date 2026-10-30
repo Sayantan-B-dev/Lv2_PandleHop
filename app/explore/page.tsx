@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import ExploreClient from "@/components/ExploreClient";
-import { getData } from "@/lib/data";
+import { getProductData } from "@/lib/repository";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Explore Pandals",
   description: "Browse Kolkata's pandals by vibe, with crowd estimates and neighbourhood guides.",
 };
 
-export default function ExplorePage() {
-  const data = getData();
+export default async function ExplorePage() {
+  const data = await getProductData();
   return (
     <div className="page">
       <div className="shell">

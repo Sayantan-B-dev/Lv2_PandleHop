@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import PlannerClient from "@/components/PlannerClient";
-import { getData } from "@/lib/data";
+import { getProductData } from "@/lib/repository";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Pujo Planner",
   description: "Build a personalised Durga Pujo route: choose your start, vibe, time window and travel style.",
 };
 
-export default function PlannerPage() {
-  const data = getData();
+export default async function PlannerPage() {
+  const data = await getProductData();
   return (
     <div className="page">
       <div className="shell">

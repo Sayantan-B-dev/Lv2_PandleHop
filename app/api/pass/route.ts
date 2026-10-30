@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { getData } from "@/lib/data";
 import { generatePass, normalizePrefs } from "@/lib/itinerary";
+import { getProductData } from "@/lib/repository";
 
 export async function POST(request: Request) {
-  const data = getData();
+  const data = await getProductData();
   let body: unknown = null;
   try {
     body = await request.json();
