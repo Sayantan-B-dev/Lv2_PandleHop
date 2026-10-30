@@ -7,9 +7,9 @@ description: Build or extend the PandalPass Next.js app from the completed ref-b
 
 ## Purpose
 
-Turn PandalPass into a production-quality Next.js app in the repository root. The static app in `ref-basic/` is the finished visual and behavioural reference. `ref-image/` holds the original design images. Both are read-only.
+Maintain and extend the production-quality Next.js app in the repository root. The static app in `ref-basic/` is the finished visual and behavioural reference. `ref-image/` holds the original design images. Both are read-only.
 
-The Next.js app does not exist yet. When the user starts the build, create it in the root without replacing or modifying the reference folders.
+The root app already includes all six routes, JSON-backed data, the itinerary engine, local storage and API routes. Extend it without modifying the reference folders.
 
 ## Required reading
 
@@ -31,24 +31,23 @@ The Next.js app does not exist yet. When the user starts the build, create it in
 Work in small vertical slices, in this order.
 
 1. Inspect `ref-basic/` pages and `ref-basic/app.js` to understand structure, content, state and flow.
-2. Create the Next.js App Router project with TypeScript.
-3. Add global tokens, reset, typography and shared layout styles from `DESIGN.md`.
-4. Port the data and itinerary engine into typed modules under `lib/`.
-5. Build the shared shell: header, mobile navigation, footer, buttons, panels, cards, badges and toast.
-6. Build `/` and verify it against `ref-basic/index.html`.
-7. Build `/planner` and `/pass`, including live summary, generation, storage and share feedback.
-8. Build `/route`, including the landscape SVG map, route line, markers, stop detail, locate action and ordered stop list.
-9. Build `/explore` and `/food`, including filters, counts, badges and page calls to action.
-10. Run the full quality gate.
-11. Commit logical parts separately with `bash commit.js`.
+2. Confirm the data lives in root `data.json` and is read through `lib/data.ts`.
+3. Update typed data and itinerary logic under `lib/` before wiring a new UI feature.
+4. Update shared styles in `app/globals.css` and shared components in `components/`.
+5. Build route-specific client or server components and pages, then verify against the matching reference page.
+6. Check the affected flow only when the code and build cannot settle it.
+7. Run `npm test` once.
+8. Commit logical parts separately with `bash commit.js`.
 
 ## Implementation expectations
 
 - Use React Server Components by default. Add `"use client"` only to interactive leaves or route pages that require state, effects or browser APIs.
 - Keep data and engine code free of browser APIs. Guard storage access with `typeof window` checks or client-only modules.
-- Use CSS Modules for component styles and a single global stylesheet for tokens, reset and base elements.
+- Use one global stylesheet for tokens, reset, layout, components and page styles. Do not add CSS Modules unless the user asks for that refactor.
+- Use `components/Icon.tsx` and `lucide-react` for interface icons. Do not use emojis anywhere.
 - Keep the same routes, copy, estimates and interactions as the reference.
 - Preserve storage keys `pandalpass.prefs` and `pandalpass.pass`.
+- Keep all dummy product data in root `data.json`.
 - Use semantic HTML, labelled controls and keyboard support.
 - Keep the design square, bordered, high-contrast and hard-shadowed. No soft shadows, rounded cards or glass effects.
 - Keep all pages responsive and free of horizontal overflow.
@@ -56,27 +55,15 @@ Work in small vertical slices, in this order.
 
 ## Verification
 
-Run the commands that exist in `package.json`, expected to include:
+Run one command:
 
 ```bash
-npm run lint
-npx tsc --noEmit
-npm run build
+npm test
 ```
 
-Then check in a browser:
+It runs the type check and then the production build, in sequence, and stops on the first failure. That is the full gate.
 
-- All six routes load without console errors.
-- Home stat counts, picks and food teasers render.
-- Planner requires a vibe before continuing.
-- Planner summary updates on every choice.
-- Generate creates a pass and lands on `/pass`.
-- Pass metrics, timeline, food stop and summary render.
-- Route map has the correct marker count, route line, stop detail and locate toast.
-- Explore filters update the count and cards.
-- Food page renders all eight cards.
-- Header navigation and mobile menu work.
-- No horizontal overflow at 390px, 768px, 1024px and 1440px.
+Do not do intense testing. No repeated runs on unchanged files, no full browser sweeps of every route, no viewport matrices and no per-control interaction passes. Add a browser check only when a change cannot be judged from the code and the build, and then check only the affected route. Report checks that could not run as limitations, never as passes.
 
 ## Commit workflow
 
@@ -92,7 +79,7 @@ Then check in a browser:
 - The Next.js app matches the reference in content, layout and behaviour.
 - The implementation is native to Next.js and React, with no reference files in the runtime.
 - The Neo-Brutalist design system is applied consistently.
-- Lint, type check and production build pass.
-- Desktop and mobile browser checks pass.
+- `npm test` passes.
+- No emojis appear in the interface, data, metadata or documentation.
 - Reference folders are untouched.
 - Work is split into clear commits with plain messages.
