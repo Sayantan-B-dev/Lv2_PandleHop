@@ -10,10 +10,16 @@ From the repository root:
 bash commit.js
 ```
 
-Preview without committing:
+Preview without committing or running checks:
 
 ```bash
 bash commit.js --dry-run
+```
+
+Skip the check and commit anyway (only when you know why the check is failing):
+
+```bash
+bash commit.js --skip-check
 ```
 
 `commit.js` is a bash script despite the `.js` extension. It is not run with Node.js. On Windows, run it from Git Bash, where `bash` is available.
@@ -21,6 +27,9 @@ bash commit.js --dry-run
 ## What the script does
 
 - Finds the repository root.
+- Refuses to run when changes are already staged.
+- Warns if `ref-basic/` or `ref-image/` has changes.
+- Runs `npm test` and stops without committing if it fails, unless `--dry-run` or `--skip-check` is used.
 - Checks each known file group.
 - Skips groups with no changes.
 - Stages only the files in that group.
@@ -47,7 +56,6 @@ Reference folders `ref-basic/` and `ref-image/` are not included in any group.
 | Route map | `feat: build the route map` |
 | Explore route | `feat: build the explore route` |
 | Food route | `feat: build the food route` |
-| Browser tests | `test: add end-to-end coverage` |
 | Static assets | `chore: add static assets` |
 
 Adjust the script if the final folder structure differs, but keep the same principle: one logical part per commit.
