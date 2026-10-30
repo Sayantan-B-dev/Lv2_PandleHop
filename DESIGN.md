@@ -1,6 +1,6 @@
 # PandalPass - Design System
 
-PandalPass is a Kolkata Durga Pujo route planner. The finished static reference lives in `ref-basic/`; the root app will be a fresh Next.js implementation of the same product. Use the reference for fidelity, but write new React components and CSS.
+PandalPass is a Kolkata Durga Pujo route planner. The finished static reference lives in `ref-basic/`; the root app is the Next.js implementation of the same product. Use the reference for fidelity. All visual content and interface icons are SVG, never emoji.
 
 Read `AGENT.md` for engineering rules and `SKILL.md` for the build workflow.
 
@@ -46,7 +46,7 @@ The page background combines `--paper` with a subtle 38px grid made from 5.5 per
 - Prices, times and metadata can use the display face for emphasis.
 - Keep all copy in English. Do not add Bengali text.
 
-Load both fonts through Google Fonts in the root layout.
+Load both fonts through `next/font/google` in the root layout and expose them as CSS variables.
 
 ## Shape and elevation
 
@@ -85,20 +85,20 @@ Load both fonts through Google Fonts in the root layout.
 - **Button**: square, 3px ink border, uppercase 13px label, hard shadow. Variants: gold, wine, dark, ghost and ghost-light.
 - **Eyebrow**: gold square plus uppercase label. On dark bands the label becomes cream or gold.
 - **Panel**: white surface, 3px border, 8px offset shadow and generous padding.
-- **Pandal card**: thumbnail strip with emoji glyph and dot pattern, balance badge, display-font name, maroon tagline, area meta and square tags.
-- **Food card**: square icon tile, display-font name, kind and area line, maroon price.
-- **Crowd badge**: bordered square with a small square glyph, colour-coded for low, moderate and heavy.
+- **Pandal card**: thumbnail strip with a Lucide vector glyph and dot pattern, crowd badge, display-font name, maroon tagline, area meta and square tags.
+- **Food card**: square icon tile with a Lucide food icon, display-font name, kind and area line, maroon price.
+- **Crowd badge**: bordered square with a small CSS square, colour-coded for low, moderate and heavy.
 - **Tag**: small bordered uppercase label on cream.
 - **Chip**: gold bordered label with a small hard shadow.
 - **Progress bar**: 12px track with 2px ink border; complete bars turn gold.
-- **Option card**: bordered square, bold label with icon, square check box; selected state is gold with an ink check.
+- **Option card**: bordered square, bold label with icon, square check box with a vector check; selected state is gold with an ink check.
 - **Toggle**: square track and knob; on state uses lime or ink with gold knob.
-- **Timeline**: three-column row with time, rail and content. Square dots on a 3px ink rail. Travel legs use small bordered pills.
+- **Timeline**: three-column row with time, rail and content. Square dots on a 3px ink rail. Travel legs use small bordered pills with vector icons.
 - **Metrics**: three square cards in gold, pink and lime with display numerals.
 - **Summary**: maroon panel with cream heading, four cream stat cells and outlined pills.
-- **Map**: landscape SVG with cream blocks, lime parks, blue water, cream roads, dashed metro lines and numbered gold markers. Use square legend swatches.
+- **Map**: landscape SVG with cream blocks, lime parks, blue water, cream roads, dashed metro lines, numbered gold markers and small vector temple shapes for off-route markers. Use square legend swatches.
 - **Toast**: fixed gold bar with ink border and offset shadow. Plain sentence case.
-- **Marquee**: continuous ink band with repeated gold and cream labels.
+- **Marquee**: continuous ink band with repeated gold and cream labels separated by vector sparkles.
 
 ## Interaction and motion
 
@@ -134,4 +134,5 @@ Use class names or CSS Module equivalents for shared state:
 - Describe crowd, time and cost as planning estimates, never live data.
 - Keep the voice direct and practical, with a light festival tone.
 - Do not add Bengali text, the old intro block, the old credit line or AI attribution.
-- Do not add emojis to commit messages or descriptions. Emojis may remain as interface icons where the reference uses them.
+- Do not use emojis anywhere: not in interface copy, data, metadata, documentation or commits. Use SVG icons only.
+- Keep all dummy product data in root `data.json`; components and pages should not duplicate it.

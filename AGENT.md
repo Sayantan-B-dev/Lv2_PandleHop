@@ -2,10 +2,10 @@
 
 ## Current state
 
-- The repository root will become the Next.js version of PandalPass. The Next.js app has not been created yet.
+- The repository root contains the working Next.js version of PandalPass, with App Router, TypeScript, JSON-backed data and API routes.
 - `ref-basic/` is the completed static reference app. It is read-only. Use it to understand behaviour, layout, copy, data and visual detail.
 - `ref-image/` contains the original design images. It is read-only.
-- Do not import, copy, serve or depend on files from `ref-basic/` or `ref-image/` in the Next.js app. Rebuild the experience with React and Next.js.
+- Do not import, copy, serve or depend on files from `ref-basic/` or `ref-image/` in the Next.js app.
 - Do not modify `ref-basic/` or `ref-image/` unless the user explicitly asks.
 
 Read `DESIGN.md` before changing any UI. Read `SKILL.md` for the build workflow.
@@ -27,44 +27,60 @@ The experience has six routes:
 
 Crowd levels, timings and costs are always planning estimates. Never present them as live data.
 
-## Planned stack
+## Stack
 
 - Next.js App Router with TypeScript.
-- React Server Components by default. Use client components only where interaction requires them: planner, route map, filters, share action, toast and local storage.
-- Plain CSS: a global token and reset layer, plus component-level CSS Modules. No inline styles, no `<style>` blocks and no inline colour values.
-- No UI framework or animation library unless the user approves it.
-- Keep the dependency list small and justified.
+- React Server Components by default. Client components handle the planner, route map, filters, share action, toast and local storage.
+- Plain CSS: one global stylesheet for tokens, reset, layout, components and page styles. No inline styles, no `<style>` blocks and no inline colour values.
+- `lucide-react` supplies SVG interface icons through `components/Icon.tsx`. No UI framework or animation library.
+- `data.json` in the repository root is the single source of dummy product data. It is read on the server through `lib/data.ts`.
 
-A reasonable target structure is:
+Scripts:
+
+- `npm run dev` starts the dev server.
+- `npm run build` builds for production.
+- `npm run start` serves the production build.
+- `npm run typecheck` runs `tsc --noEmit`.
+- `npm test` runs typecheck then build sequentially. Use this as the single check.
+
+Current structure:
 
 ```
 app/
+  api/data/route.ts
+  api/pass/route.ts
   layout.tsx
   page.tsx
   globals.css
+  icon.svg
   planner/page.tsx
   pass/page.tsx
   route/page.tsx
   explore/page.tsx
   food/page.tsx
 components/
-  layout/
-  ui/
-  home/
-  planner/
-  pass/
-  route/
-  explore/
-  food/
+  Header.tsx
+  Footer.tsx
+  Icon.tsx
+  Marquee.tsx
+  PandalCard.tsx
+  FoodCard.tsx
+  Toast.tsx
+  PlannerClient.tsx
+  PassClient.tsx
+  RouteClient.tsx
+  RouteMap.tsx
+  ExploreClient.tsx
 lib/
   data.ts
   types.ts
   itinerary.ts
   storage.ts
-public/
+  format.ts
+data.json
 ```
 
-Adapt the structure if needed, but keep route code, shared UI, data and logic separated.
+Keep route code, shared UI, data and logic separated.
 
 ## Hard rules
 
@@ -78,16 +94,27 @@ Adapt the structure if needed, but keep route code, shared UI, data and logic se
 8. Keep accessibility: semantic landmarks, labels, keyboard-operable map markers, visible focus, and colour plus text for status.
 9. Never commit secrets, environment files or generated build output.
 10. Commit separate parts separately. Follow `commit.md` and run `bash commit.js` only when the user asks for commits.
+11. Do not use emojis anywhere: not in the interface, data, copy, metadata, documentation or commit messages. Use `components/Icon.tsx`, Lucide SVG icons or inline SVG instead.
+12. Keep all dummy product data in root `data.json`. Do not duplicate pandals, starts, foods, options, map labels or defaults in components.
 
 ## Data and logic
 
-Move the reference data and itinerary engine into typed modules:
+Root `data.json` holds the product data:
 
 - 26 pandals with id, name, area, tagline, tags, crowd level, x/y map coordinates and other display data.
 - 12 start points.
 - 8 food stops.
 - Vibe, time and travel-mode options.
-- The generator scores pandals by selected vibes, crowd and distance, orders them from the start point, adds travel legs, wait and stay times, and inserts an optional food stop.
+- Site copy, storage keys, default preferences, home picks, crowd and tag labels, map area labels and engine constants.
+
+`lib/data.ts` reads and caches the JSON on the server. `lib/itinerary.ts` contains the typed generator: it scores pandals by selected vibes, crowd and distance, orders them from the start point, adds travel legs, wait and stay times, and inserts an optional food stop. `lib/storage.ts` handles browser storage. `lib/format.ts` handles shared display formatting.
+
+API routes:
+
+- `GET /api/data` returns the full data set.
+- `POST /api/pass` accepts planner preferences and returns a generated pass.
+
+The planner posts preferences to `/api/pass` and stores the result locally, falling back to local generation only if the request fails.
 
 Keep the existing storage keys unless the user asks to rename them:
 
@@ -111,17 +138,20 @@ The pass and route pages must read the current plan and fall back to a sensible 
 
 ## Quality gates
 
-Before reporting work as complete:
+Run one command before reporting work as complete:
 
-1. Run the project lint command.
-2. Run TypeScript checking.
-3. Run a production build.
-4. Exercise all six routes and the planner -> pass -> route flow in a browser.
-5. Check desktop and mobile widths for horizontal overflow.
-6. Check the browser console for errors.
-7. Confirm `ref-basic/` and `ref-image/` were not modified.
+```bash
+npm test
+```
 
-Use the scripts defined in `package.json` once the app exists.
+`npm test` runs the checks in order and stops at the first failure:
+
+1. `npm run typecheck`
+2. `npm run build`
+
+That is the whole gate. Do not run separate checks, do not repeat the same command on unchanged files, and do not do intense or exhaustive testing: no page-by-page browser sweeps, no viewport matrices, no clicking through every control, no test suites. Only add a browser check when a specific change cannot be judged from the code and the build, and then check just the affected route.
+
+No lint script is configured. Do not add lint tooling unless the user asks for it.
 
 ## Commit rules
 

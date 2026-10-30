@@ -6,9 +6,9 @@ Crowd levels, timings and costs are planning estimates, not live data.
 
 ## Repository status
 
-The completed static reference app is in `ref-basic/`. The repository root is being prepared for a new Next.js implementation of the same product. The Next.js app has not been created yet.
+The completed static reference app is in `ref-basic/`. The repository root contains the Next.js implementation of the same product, including all six routes, JSON-backed data and API routes.
 
-`ref-basic/` and `ref-image/` are read-only references. The Next.js app will not import or serve files from either folder.
+`ref-basic/` and `ref-image/` are read-only references. The Next.js app does not import or serve files from either folder. All dummy product data lives in root `data.json`.
 
 ## What the product includes
 
@@ -20,7 +20,7 @@ The completed static reference app is in `ref-basic/`. The repository root is be
 - A food-stop directory with rough per-person prices.
 - Local storage for planner preferences and the generated pass.
 
-## Planned routes
+## Routes
 
 | Route | Purpose |
 |---|---|
@@ -31,14 +31,22 @@ The completed static reference app is in `ref-basic/`. The repository root is be
 | `/explore` | Pandal directory |
 | `/food` | Food stops |
 
-## Planned stack
+API routes:
+
+| Route | Purpose |
+|---|---|
+| `GET /api/data` | Full JSON data set |
+| `POST /api/pass` | Generate a pass from planner preferences |
+
+## Stack
 
 - Next.js App Router
 - TypeScript
 - React
-- Plain CSS with global design tokens and component-level CSS Modules
+- Plain CSS with global design tokens and shared styles
+- SVG interface icons through `lucide-react`
 
-No UI framework is planned. The visual system is a Neo-Brutalist festival style with square corners, thick ink borders, hard offset shadows, maroon and cream surfaces, and bright gold, pink, blue, lime and orange accents.
+The visual system is a Neo-Brutalist festival style with square corners, thick ink borders, hard offset shadows, maroon and cream surfaces, and bright gold, pink, blue, lime and orange accents. There are no emojis in the interface, data or copy.
 
 ## Repository layout
 
@@ -49,18 +57,32 @@ SKILL.md       Build and verification workflow
 commit.md      Commit policy
 commit.js      Separate-commit helper, run with bash
 README.md      This file
+data.json      Single source of dummy product data
+app/           Next.js App Router routes and global styles
+components/    Shared UI and interactive client components
+lib/           Typed data loading, itinerary, storage and formatting
 ref-basic/     Finished static reference app
 ref-image/     Original reference images
 ```
 
-Additional Next.js files will be added when the build starts:
+## Run locally
 
+```bash
+npm install
+npm run dev
 ```
-app/
-components/
-lib/
-public/
+
+Production check (type check, then build, in sequence):
+
+```bash
+npm test
 ```
+
+Serve the build with `npm run start`.
+
+On Windows PowerShell, use `npm.cmd` if script execution policy blocks `npm.ps1`.
+
+Open `http://localhost:3000`. The planner flow is `/planner` -> `/pass` -> `/route`.
 
 ## Reference app
 
@@ -84,4 +106,4 @@ See `commit.md` for the full policy.
 
 ## Working with agents
 
-Agents should read `AGENT.md`, `DESIGN.md`, `SKILL.md` and `commit.md` before making changes. The reference folders are read-only, and the Next.js app must be written from scratch rather than assembled from the static files.
+Agents should read `AGENT.md`, `DESIGN.md`, `SKILL.md` and `commit.md` before making changes. The reference folders are read-only, and the Next.js app must be written from scratch rather than assembled from the static files. Do not run intense or repeated testing; `npm test` once is the check.
