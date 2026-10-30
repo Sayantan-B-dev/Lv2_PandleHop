@@ -47,11 +47,6 @@ if ! git diff --cached --quiet; then
   exit 1
 fi
 
-if [ -n "$(git status --porcelain -- ref-basic ref-image)" ]; then
-  echo "Warning: ref-basic or ref-image has changes. Reference folders are excluded from commits."
-  echo
-fi
-
 commit_group() {
   local message="$1"
   shift
@@ -104,6 +99,9 @@ commit_group "docs: add agent build skill" \
 commit_group "chore: add separate commit helper" \
   commit.md commit.js
 
+commit_group "chore: move reference apps and seed data into legacy" \
+  legacy data.json
+
 # Next.js setup
 commit_group "chore: initialize Next.js project" \
   package.json package-lock.json pnpm-lock.yaml yarn.lock bun.lockb \
@@ -117,7 +115,10 @@ commit_group "chore: initialize Next.js project" \
 
 # Data and logic
 commit_group "feat: add typed PandalPass data and itinerary engine" \
-  data.json lib src/lib data src/data
+  lib src/lib
+
+commit_group "feat: add MySQL schema and database guide" \
+  db
 
 # Global design system
 commit_group "style: add Neo-Brutalist design system" \
@@ -130,7 +131,7 @@ commit_group "feat: add shared layout and interface components" \
   components/layout components/ui components/shared \
   components/Icon.tsx components/Header.tsx components/Footer.tsx \
   components/Marquee.tsx components/PandalCard.tsx components/FoodCard.tsx \
-  components/Toast.tsx \
+  components/Toast.tsx components/AccountNav.tsx \
   components/site-header.tsx components/site-header.module.css \
   components/site-footer.tsx components/site-footer.module.css \
   components/nav-toggle.tsx components/nav-toggle.module.css \
@@ -161,7 +162,11 @@ commit_group "feat: build the food route" \
   app/food src/app/food \
   components/food
 
-commit_group "feat: add JSON-backed API routes" \
+commit_group "feat: build the account sign in route" \
+  app/login src/app/login \
+  components/LoginClient.tsx
+
+commit_group "feat: add data, map and auth API routes" \
   app/api src/app/api
 
 # Static assets
@@ -169,6 +174,10 @@ commit_group "chore: add static assets" \
   public \
   app/favicon.ico app/icon.svg app/icon.png app/apple-icon.png \
   src/app/favicon.ico src/app/icon.svg src/app/icon.png src/app/apple-icon.png
+
+# Whole project state
+commit_group "chore: snapshot current project state" \
+  .env.example AGENT.md DESIGN.md README.md SKILL.md commit.js commit.md app/api/data/route.ts app/api/pass/route.ts app/explore/page.tsx app/food/page.tsx app/globals.css app/layout.tsx app/page.tsx app/pass/page.tsx app/planner/page.tsx app/route/page.tsx components/Header.tsx components/RouteClient.tsx tsconfig.json
 
 echo "Commit groups complete."
 echo

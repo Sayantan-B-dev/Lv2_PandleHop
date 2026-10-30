@@ -22,7 +22,6 @@ bash commit.js --dry-run
 
 - Finds the repository root.
 - Refuses to run when changes are already staged.
-- Warns if `ref-basic/` or `ref-image/` has changes.
 - Checks each known file group.
 - Skips groups with no changes.
 - Stages only the files in that group.
@@ -30,7 +29,7 @@ bash commit.js --dry-run
 - Never pushes, amends, rebases or force-pushes.
 - Prints remaining changed files at the end so nothing is silently forgotten.
 
-Reference folders `ref-basic/` and `ref-image/` are not included in any group.
+The `legacy/` archive gets one group for its initial move. Reference apps, images and the retired seed are otherwise not edited or recommitted.
 
 ## Groups and messages
 
@@ -39,8 +38,10 @@ Reference folders `ref-basic/` and `ref-image/` are not included in any group.
 | Project documentation | `docs: document the project and Next.js migration plan` |
 | Agent skill | `docs: add agent build skill` |
 | Commit tooling | `chore: add separate commit helper` |
+| Legacy archive | `chore: move reference apps and seed data into legacy` |
 | Next.js setup and configuration | `chore: initialize Next.js project` |
 | Typed data and itinerary engine | `feat: add typed PandalPass data and itinerary engine` |
+| Database schema and guide | `feat: add MySQL schema and database guide` |
 | Global design system | `style: add Neo-Brutalist design system` |
 | Shared layout and UI components | `feat: add shared layout and interface components` |
 | Home route | `feat: build the home page` |
@@ -49,6 +50,8 @@ Reference folders `ref-basic/` and `ref-image/` are not included in any group.
 | Route map | `feat: build the route map` |
 | Explore route | `feat: build the explore route` |
 | Food route | `feat: build the food route` |
+| Account sign in route | `feat: build the account sign in route` |
+| API routes | `feat: add data, map and auth API routes` |
 | Static assets | `chore: add static assets` |
 
 Adjust the script if the final folder structure differs, but keep the same principle: one logical part per commit.
@@ -80,7 +83,7 @@ Keep the subject imperative, lowercase after the type prefix and under about 72 
 
 - Never stage `.env` files, secrets, credentials, API keys or local machine settings.
 - Never commit build output, `.next/`, `node_modules/` or temporary screenshots.
-- Never commit changes inside `ref-basic/` or `ref-image/`.
+- Never edit or recommit the files inside `legacy/`; only the archive move itself is committed.
 - Do not commit unless the user asks for commits.
 - If a group fails, fix the problem and rerun the script. It is safe to rerun because empty groups are skipped.
 - Do not squash or rewrite published history.
