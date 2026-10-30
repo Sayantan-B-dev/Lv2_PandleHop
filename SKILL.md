@@ -1,15 +1,15 @@
 ---
 name: pandalpass-nextjs
-description: Build or extend the PandalPass Next.js app from the completed ref-basic static reference. Use when implementing routes, components, styling, itinerary logic, browser checks, or the separate commit workflow.
+description: Build or extend the PandalPass Next.js app from the completed legacy/ref-basic static reference. Use when implementing routes, components, styling, MySQL data, auth, MapTiler, or the separate commit workflow.
 ---
 
 # PandalPass Next.js build skill
 
 ## Purpose
 
-Maintain and extend the production-quality Next.js app in the repository root. The static app in `ref-basic/` is the finished visual and behavioural reference. `ref-image/` holds the original design images. Both are read-only.
+Maintain and extend the production-quality Next.js app in the repository root. The static app in `legacy/ref-basic/` is the finished visual and behavioural reference. `legacy/ref-image/` holds the original design images. `legacy/data.json` is the archived seed. All of `legacy/` is read-only.
 
-The root app already includes all six routes, JSON-backed data, the itinerary engine, local storage and API routes. Extend it without modifying the reference folders.
+The root app already includes all six routes, MySQL-backed data, accounts, the itinerary engine, local storage and API routes. Extend it without modifying `legacy/`.
 
 ## Required reading
 
@@ -20,18 +20,18 @@ The root app already includes all six routes, JSON-backed data, the itinerary en
 
 ## Reference policy
 
-- Do not copy HTML, CSS or JavaScript files from `ref-basic/` into the Next.js app.
-- Do not import or link to `ref-basic/` or `ref-image/` at runtime.
+- Do not copy HTML, CSS or JavaScript files from `legacy/ref-basic/` into the Next.js app.
+- Do not import or link to anything under `legacy/` at runtime.
 - Use the reference to verify layout, copy, data, interaction and visual detail only.
-- Do not edit, move or delete either reference folder.
-- Exclude `ref-basic/` and `ref-image/` from lint, type checking and build inputs.
+- Do not edit, move or delete anything under `legacy/`.
+- Exclude `legacy/` from lint, type checking and build inputs.
 
 ## Build workflow
 
 Work in small vertical slices, in this order.
 
-1. Inspect `ref-basic/` pages and `ref-basic/app.js` to understand structure, content, state and flow.
-2. Confirm the data lives in root `data.json` and is read through `lib/data.ts`.
+1. Inspect `legacy/ref-basic/` pages and `legacy/ref-basic/app.js` to understand structure, content, state and flow.
+2. Confirm the data comes from MySQL through `lib/repository.ts` and that `db/schema.sql` matches any change.
 3. Update typed data and itinerary logic under `lib/` before wiring a new UI feature.
 4. Update shared styles in `app/globals.css` and shared components in `components/`.
 5. Build route-specific client or server components and pages, then verify against the matching reference page.
@@ -47,7 +47,10 @@ Work in small vertical slices, in this order.
 - Use `components/Icon.tsx` and `lucide-react` for interface icons. Do not use emojis anywhere.
 - Keep the same routes, copy, estimates and interactions as the reference.
 - Preserve storage keys `pandalpass.prefs` and `pandalpass.pass`.
-- Keep all dummy product data in root `data.json`.
+- No hard-coded product data and no JSON fallback. Runtime reads go through `getProductData()` in `lib/repository.ts`, which uses `lib/db.ts` and the `AIVEN_MYSQL_*` variables. Seed changes belong in `db/schema.sql`, not in components.
+- Never query MySQL or import `lib/db.ts`, `lib/repository.ts` or `lib/auth.ts` from a client component.
+- Keep passwords server-side only: scrypt hashes in the `users` table and an http-only JWT session cookie. Never log credentials or return hashes.
+- Serve MapTiler maps through `/api/map`. The API key stays in the server environment; components only request the proxy URL.
 - Use semantic HTML, labelled controls and keyboard support.
 - Keep the design square, bordered, high-contrast and hard-shadowed. No soft shadows, rounded cards or glass effects.
 - Keep all pages responsive and free of horizontal overflow.
