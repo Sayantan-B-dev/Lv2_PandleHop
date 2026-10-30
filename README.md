@@ -6,9 +6,9 @@ Crowd levels, timings and costs are planning estimates, not live data.
 
 ## Repository status
 
-The completed static reference app is in `ref-basic/`. The repository root contains the Next.js implementation of the same product, including all six routes, JSON-backed data and API routes.
+The completed static reference app is in `legacy/ref-basic/`. The repository root contains the Next.js implementation of the same product, including all six routes, MySQL-backed data, accounts and API routes.
 
-`ref-basic/` and `ref-image/` are read-only references. The Next.js app does not import or serve files from either folder. All dummy product data lives in root `data.json`.
+`legacy/` is read-only. The Next.js app does not import or serve files from it. Product data lives in Aiven for MySQL and is seeded by `db/schema.sql`; `legacy/data.json` is only an archive of the original seed.
 
 ## What the product includes
 
@@ -19,6 +19,9 @@ The completed static reference app is in `ref-basic/`. The repository root conta
 - A filterable pandal directory.
 - A food-stop directory with rough per-person prices.
 - Local storage for planner preferences and the generated pass.
+- Username and password accounts with scrypt password hashes and JWT session cookies.
+- A real street map from MapTiler under the stylised route map.
+- Pandal, start, food, option and engine data served from Aiven for MySQL, with no file-based fallback.
 
 ## Routes
 
@@ -30,19 +33,28 @@ The completed static reference app is in `ref-basic/`. The repository root conta
 | `/route` | Route map |
 | `/explore` | Pandal directory |
 | `/food` | Food stops |
+| `/login` | Sign in or create an account |
 
 API routes:
 
 | Route | Purpose |
 |---|---|
-| `GET /api/data` | Full JSON data set |
+| `GET /api/data` | Full data set from MySQL |
 | `POST /api/pass` | Generate a pass from planner preferences |
+| `GET /api/map` | Proxy a MapTiler static map for the current route |
+| `POST /api/auth/register` | Create an account and start a session |
+| `POST /api/auth/login` | Sign in with username and password |
+| `POST /api/auth/logout` | Clear the session cookie |
+| `GET /api/auth/me` | Current signed-in user, or `null` |
 
 ## Stack
 
 - Next.js App Router
 - TypeScript
 - React
+- Aiven for MySQL through `mysql2`
+- Username and password accounts with HS256 JWT session cookies through `jose`
+- MapTiler static maps for the street-level route view
 - Plain CSS with global design tokens and shared styles
 - SVG interface icons through `lucide-react`
 
@@ -57,12 +69,11 @@ SKILL.md       Build and verification workflow
 commit.md      Commit policy
 commit.js      Separate-commit helper, run with bash
 README.md      This file
-data.json      Single source of dummy product data
 app/           Next.js App Router routes and global styles
 components/    Shared UI and interactive client components
-lib/           Typed data loading, itinerary, storage and formatting
-ref-basic/     Finished static reference app
-ref-image/     Original reference images
+lib/           Database access, repository, auth, map, itinerary, storage and formatting
+db/            MySQL schema, seed SQL, apply script and database guide
+legacy/        Archived seed data and read-only reference apps
 ```
 
 ## Run locally
@@ -71,6 +82,14 @@ ref-image/     Original reference images
 npm install
 npm run dev
 ```
+
+The app requires Aiven for MySQL; there is no JSON fallback. Follow `db/db.md`, set the `AIVEN_MYSQL_*` variables, then apply the schema and seed with:
+
+```bash
+npm run db:apply
+```
+
+Sign in or register at `/login`.
 
 Production check (type check, then build, in sequence):
 
@@ -86,7 +105,7 @@ Open `http://localhost:3000`. The planner flow is `/planner` -> `/pass` -> `/rou
 
 ## Reference app
 
-The static reference can be opened directly from `ref-basic/index.html`, or served with any static file server. It is plain HTML, CSS and JavaScript and has no build step.
+The static reference can be opened directly from `legacy/ref-basic/index.html`, or served with any static file server. It is plain HTML, CSS and JavaScript and has no build step.
 
 ## Commit workflow
 

@@ -1,6 +1,6 @@
 # PandalPass - Design System
 
-PandalPass is a Kolkata Durga Pujo route planner. The finished static reference lives in `ref-basic/`; the root app is the Next.js implementation of the same product. Use the reference for fidelity. All visual content and interface icons are SVG, never emoji.
+PandalPass is a Kolkata Durga Pujo route planner. The finished static reference lives in `legacy/ref-basic/`; the root app is the Next.js implementation of the same product. Use the reference for fidelity. All visual content and interface icons are SVG, never emoji.
 
 Read `AGENT.md` for engineering rules and `SKILL.md` for the build workflow.
 
@@ -73,12 +73,12 @@ Load both fonts through `next/font/google` in the root layout and expose them as
 
 | Route | Reference | Key elements |
 |---|---|---|
-| `/` | `ref-basic/index.html` | Maroon hero, route preview, three stat tiles, marquee, three-step section, four pandal picks, food teaser, maroon CTA band |
-| `/planner` | `ref-basic/planner.html` | Four progress bars, step label, option cards, gold selected state, lime food toggle, gold live summary |
-| `/pass` | `ref-basic/pass.html` | Maroon pass band, three coloured metrics, vertical timeline, route-at-a-glance card, maroon night summary |
-| `/route` | `ref-basic/route.html` | Landscape SVG map, numbered route markers, crowd dots, metro lines, legend, locate button, stop detail, ordered stop list |
-| `/explore` | `ref-basic/explore.html` | Vibe filters, count, three-column pandal grid, crowd badges, page CTA |
-| `/food` | `ref-basic/food.html` | Two-column food grid, coloured icon tiles, price estimates, page CTA |
+| `/` | `legacy/ref-basic/index.html` | Maroon hero, route preview, three stat tiles, marquee, three-step section, four pandal picks, food teaser, maroon CTA band |
+| `/planner` | `legacy/ref-basic/planner.html` | Four progress bars, step label, option cards, gold selected state, lime food toggle, gold live summary |
+| `/pass` | `legacy/ref-basic/pass.html` | Maroon pass band, three coloured metrics, vertical timeline, route-at-a-glance card, maroon night summary |
+| `/route` | `legacy/ref-basic/route.html` | Landscape SVG map, numbered route markers, crowd dots, metro lines, legend, locate button, stop detail, ordered stop list |
+| `/explore` | `legacy/ref-basic/explore.html` | Vibe filters, count, three-column pandal grid, crowd badges, page CTA |
+| `/food` | `legacy/ref-basic/food.html` | Two-column food grid, coloured icon tiles, price estimates, page CTA |
 
 ## Components
 
@@ -135,4 +135,4 @@ Use class names or CSS Module equivalents for shared state:
 - Keep the voice direct and practical, with a light festival tone.
 - Do not add Bengali text, the old intro block, the old credit line or AI attribution.
 - Do not use emojis anywhere: not in interface copy, data, metadata, documentation or commits. Use SVG icons only.
-- Keep all dummy product data in root `data.json`; components and pages should not duplicate it.
+- Product data comes from MySQL; components and pages must not duplicate it. Seed changes belong in `db/schema.sql`, never in UI code.
