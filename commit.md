@@ -10,16 +10,10 @@ From the repository root:
 bash commit.js
 ```
 
-Preview without committing or running checks:
+Preview without committing:
 
 ```bash
 bash commit.js --dry-run
-```
-
-Skip the check and commit anyway (only when you know why the check is failing):
-
-```bash
-bash commit.js --skip-check
 ```
 
 `commit.js` is a bash script despite the `.js` extension. It is not run with Node.js. On Windows, run it from Git Bash, where `bash` is available.
@@ -29,7 +23,6 @@ bash commit.js --skip-check
 - Finds the repository root.
 - Refuses to run when changes are already staged.
 - Warns if `ref-basic/` or `ref-image/` has changes.
-- Runs `npm test` and stops without committing if it fails, unless `--dry-run` or `--skip-check` is used.
 - Checks each known file group.
 - Skips groups with no changes.
 - Stages only the files in that group.

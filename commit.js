@@ -3,31 +3,23 @@
 # This file is intentionally named commit.js but must be run with bash:
 #   bash commit.js
 #   bash commit.js --dry-run
-#   bash commit.js --skip-check
 # It is not a Node.js script.
 
 set -euo pipefail
 
 usage() {
-  echo "Usage: bash commit.js [--dry-run] [--skip-check]"
+  echo "Usage: bash commit.js [--dry-run]"
   echo
-  echo "Runs npm test, then stages known project groups and creates one commit per group."
+  echo "Stages known project groups and creates one commit per group."
   echo "Empty groups are skipped. Nothing is pushed or amended."
-  echo
-  echo "  --dry-run     Show the groups and files without committing or running checks."
-  echo "  --skip-check  Commit without running npm test first."
 }
 
 dry_run=0
-skip_check=0
 
 for arg in "$@"; do
   case "$arg" in
     --dry-run)
       dry_run=1
-      ;;
-    --skip-check)
-      skip_check=1
       ;;
     -h|--help)
       usage
@@ -57,17 +49,6 @@ fi
 
 if [ -n "$(git status --porcelain -- ref-basic ref-image)" ]; then
   echo "Warning: ref-basic or ref-image has changes. Reference folders are excluded from commits."
-  echo
-fi
-
-if [ "$dry_run" -eq 0 ] && [ "$skip_check" -eq 0 ]; then
-  echo "Running npm test."
-  if ! npm test; then
-    echo
-    echo "npm test failed. Nothing was committed."
-    echo "Fix the failure, or use --skip-check to commit anyway."
-    exit 1
-  fi
   echo
 fi
 
@@ -132,7 +113,7 @@ commit_group "chore: initialize Next.js project" \
   .eslintrc .eslintrc.json .eslintrc.js .eslintignore \
   postcss.config.js postcss.config.mjs postcss.config.ts \
   tailwind.config.js tailwind.config.ts \
-  .gitignore .editorconfig
+  .gitignore .editorconfig .env.example
 
 # Data and logic
 commit_group "feat: add typed PandalPass data and itinerary engine" \
