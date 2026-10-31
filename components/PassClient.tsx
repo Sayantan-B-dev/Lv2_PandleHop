@@ -54,7 +54,7 @@ export default function PassClient({ data }: { data: PandalPassData }) {
       .map((id) => data.pandals.find((pandal) => pandal.id === id)?.name)
       .filter(Boolean)
       .join(" to ");
-    const text = `My Pujo Pass: ${pass.startPoint.name} to ${names} (${fmtDur(pass.totalMins)})`;
+    const text = `My PandalHoppers Pass: ${pass.startPoint.name} to ${names} (${fmtDur(pass.totalMins)})`;
     try {
       if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
       await navigator.clipboard.writeText(text);
@@ -68,7 +68,7 @@ export default function PassClient({ data }: { data: PandalPassData }) {
     return (
       <div className="page">
         <div className="shell">
-          <p className="panel" aria-busy="true">Loading your Pujo Pass.</p>
+          <p className="panel" aria-busy="true">Loading your PandalHoppers Pass.</p>
         </div>
       </div>
     );
@@ -78,9 +78,9 @@ export default function PassClient({ data }: { data: PandalPassData }) {
     return (
       <div className="page">
         <div className="shell empty-state">
-          <p className="eyebrow">Your Pujo Pass</p>
-          <h1>No pass yet.</h1>
-          <p>Build a route first and your timed Pujo Pass will appear here.</p>
+          <p className="eyebrow">Your PandalHoppers Pass</p>
+          <h1>No PandalHoppers pass yet.</h1>
+          <p>Build a route first and your timed PandalHoppers pass will appear here.</p>
           <Link className="btn btn--wine" href="/planner">Open the planner</Link>
         </div>
       </div>
@@ -97,8 +97,8 @@ export default function PassClient({ data }: { data: PandalPassData }) {
         <div className="shell">
           <div className="pass-band__top">
             <div>
-              <p className="eyebrow">Your Pujo Pass</p>
-              <h1>One night. One route.</h1>
+              <p className="eyebrow">Your PandalHoppers Pass</p>
+              <h1>One night. One PandalHoppers route.</h1>
               <p className="pass-band__line">
                 {pass.prefs.hours} hours · {pandalCount} pandals · {pass.foodStops} food stop
                 {pass.foodStops === 1 ? "" : "s"}
@@ -141,7 +141,7 @@ export default function PassClient({ data }: { data: PandalPassData }) {
                     <div className="tl-rail"><span className="tl-dot tl-dot--start" /></div>
                     <div className="tl-content">
                       <div className="tl-start">
-                        <Icon name="mapPin" size={15} /> Start — {item.name}
+                        <Icon name="mapPin" size={15} /> Start - {item.name}
                         <small>Meeting point</small>
                       </div>
                     </div>
@@ -219,7 +219,7 @@ export default function PassClient({ data }: { data: PandalPassData }) {
         <aside className="pass-aside">
           <section className="panel summary" aria-label="Night summary">
             <p className="eyebrow">Night summary</p>
-            <h2>Pujo night complete.</h2>
+            <h2>PandalHoppers night complete.</h2>
             <div className="summary__grid">
               <div className="summary__cell">
                 <div className="summary__num">{pandalCount}</div>
@@ -245,7 +245,7 @@ export default function PassClient({ data }: { data: PandalPassData }) {
               <span className="pill">{mode?.label ?? "Travel plan"}</span>
               {hasFood ? <span className="pill">Food included</span> : null}
             </div>
-            <p className="summary__outro">Until next Pujo.</p>
+            <p className="summary__outro">Until next PandalHoppers.</p>
           </section>
 
           <section className="panel">
