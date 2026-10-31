@@ -22,11 +22,11 @@ const sans = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "PandalPass — Plan your Pujo night",
-    template: "%s — PandalPass",
+    default: "PandalHoppers Plan your Pujo night",
+    template: "%s PandalHoppers",
   },
   description:
-    "PandalPass is a personalised Durga Pujo route planner for Kolkata. Build a pandal-hopping night that fits your time, taste and travel style.",
+    "PandalHoppers is a personalised Durga Pujo route planner for Kolkata. Build a pandal-hopping night that fits your time, taste and travel style.",
 };
 
 export const dynamic = "force-dynamic";
