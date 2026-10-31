@@ -25,13 +25,12 @@ export default async function HomePage() {
           <div className="hero-copy">
             <p className="eyebrow">Kolkata · {data.site.festival} planner</p>
             <h1>
-              Your Pujo night,
+              Your PandalHoppers night,
               <br />
               <em>perfectly plotted.</em>
             </h1>
             <p className="lead">
-              Tell us where you&apos;re starting and how you like to roam. PandalPass stitches the pandals, food
-              stops and travel legs into one easy night out.
+              Tell us where you&apos;re starting and how you like to roam.PandalHoppers stitches the pandals, food stops and travel legs into one easy night out.
             </p>
             <div className="hero-copy__actions">
               <Link className="btn btn--wine" href="/planner">Build my route</Link>
@@ -127,7 +126,7 @@ export default async function HomePage() {
         <div className="shell">
           <div className="section-head">
             <p className="eyebrow">How it works</p>
-            <h2>Three calm steps to a big Pujo night.</h2>
+            <h2>Three calm steps to a big PandalHoppers night.</h2>
           </div>
           <div className="steps-grid">
             <article className="step-card">
@@ -196,7 +195,7 @@ export default async function HomePage() {
         <div className="shell cta-band__inner">
           <div>
             <p className="eyebrow">Ready when you are</p>
-            <h2>Let&apos;s map your Pujo night.</h2>
+            <h2>Let&apos;s map your PandalHoppers night.</h2>
           </div>
           <Link className="btn btn--gold" href="/planner">Start planning</Link>
         </div>
