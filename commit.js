@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Separate-commit helper for PandalPass.
+# Separate-commit helper for PandalHoppers.
 # This file is intentionally named commit.js but must be run with bash:
 #   bash commit.js
 #   bash commit.js --dry-run
@@ -114,7 +114,7 @@ commit_group "chore: initialize Next.js project" \
   .gitignore .editorconfig .env.example
 
 # Data and logic
-commit_group "feat: add typed PandalPass data and itinerary engine" \
+commit_group "feat: add typed PandalHoppers data and itinerary engine" \
   lib src/lib
 
 commit_group "feat: add MySQL schema and database guide" \
