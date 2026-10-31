@@ -51,7 +51,7 @@ export default function ExploreClient({ data }: { data: PandalPassData }) {
         )}
       </div>
       <div className="page-cta">
-        <Link className="btn btn--wine" href="/planner">Plan my Pujo</Link>
+        <Link className="btn btn--wine" href="/planner">Plan my PandalHoppers</Link>
       </div>
     </>
   );
