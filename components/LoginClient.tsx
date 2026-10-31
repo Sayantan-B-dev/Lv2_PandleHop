@@ -68,10 +68,10 @@ export default function LoginClient() {
         </button>
       </div>
 
-      <h1 className="auth-card__title">{mode === "login" ? "Welcome back." : "Join the crawl."}</h1>
+      <h1 className="auth-card__title">{mode === "login" ? "Welcome back." : "Join the PandalHoppers crawl."}</h1>
       <p className="auth-card__lead">
         {mode === "login"
-          ? "Use your PandalPass username and password to open a session."
+          ? "Use your PandalHoppers username and password to open a session."
           : "Choose a username and a password of at least 8 characters."}
       </p>
 
