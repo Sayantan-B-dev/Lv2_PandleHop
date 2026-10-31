@@ -5,7 +5,7 @@ import { getProductData } from "@/lib/repository";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Pujo Planner",
+  title: "PandalHoppers Planner",
   description: "Build a personalised Durga Pujo route: choose your start, vibe, time window and travel style.",
 };
 
@@ -18,8 +18,8 @@ export default async function PlannerPage() {
           <p className="eyebrow">Route builder</p>
           <h1>Design your night</h1>
           <p>
-            Four quick choices and PandalPass builds a timed route that fits how you actually want to spend the
-            evening.
+Four quick choices and PandalHoppers builds a timed route that fits how you actually want to spend the
+evening.
           </p>
         </div>
         <PlannerClient data={data} />

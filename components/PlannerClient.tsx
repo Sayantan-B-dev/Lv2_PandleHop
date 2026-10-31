@@ -86,7 +86,7 @@ export default function PlannerClient({ data }: { data: PandalPassData }) {
   return (
     <>
       <div className="planner-layout">
-        <section className="panel planner-panel" aria-label="Pujo planner">
+        <section className="panel planner-panel" aria-label="PandalHoppers planner">
           <div className="progress" aria-hidden="true">
             {[1, 2, 3, 4].map((number) => (
               <span className={`progress__bar${number <= step ? " is-done" : ""}`} key={number} />
@@ -126,7 +126,7 @@ export default function PlannerClient({ data }: { data: PandalPassData }) {
 
             {step === 2 ? (
               <section>
-                <h2 className="question">What kind of Pujo night?</h2>
+                <h2 className="question">What kind of PandalHoppers night?</h2>
                 <p className="question-hint">Choose all that feel right.</p>
                 <div className="options">
                   {data.vibes.map((vibe) => {
@@ -238,7 +238,7 @@ export default function PlannerClient({ data }: { data: PandalPassData }) {
               onClick={next}
               disabled={nextDisabled || busy}
             >
-              {busy ? "Building route" : step === TOTAL_STEPS ? "Generate my Pujo Pass" : "Next"}
+              {busy ? "Building route" : step === TOTAL_STEPS ? "Generate my PandalHoppers Pass" : "Next"}
             </button>
           </div>
         </section>
@@ -268,7 +268,7 @@ export default function PlannerClient({ data }: { data: PandalPassData }) {
             </div>
           </dl>
           <p className="plan-summary__note">
-            Everything here is a planning estimate. Tap Generate when you&apos;re happy with the shape of the night.
+            Everything here is a planning estimate. Tap Generate when you&apos;re happy with the shape of the PandalHoppers night.
           </p>
         </aside>
       </div>
