@@ -1437,7 +1437,7 @@ h1, h2, h3, h4 {
   .site-footer__inner { grid-template-columns: 1fr; }
   .footer-nav { grid-template-columns: 1fr 1fr; }
   .hero-home__grid { padding-top: 48px; }
-  .hero-image__layer { left: 0; top: -4%; bottom: -4%; background-position: 68% right; }
+  .hero-image__layer { left: 0; top: -5%; bottom: -4%; background-position: 68% right; }
   .hero-copy h1 { font-size: clamp(42px, 12vw, 62px); }
   .hero-stats { grid-template-columns: 1fr; }
   .section-head--row { flex-direction: column; align-items: flex-start; }
