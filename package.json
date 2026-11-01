@@ -8,7 +8,6 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "npm run typecheck && npm run build",
-    "db:apply": "node --env-file=.env db/apply.mjs"
   },
   "dependencies": {
     "jose": "^6.2.14",

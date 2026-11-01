@@ -8,8 +8,9 @@ never reads a real `.env` file itself.
 
 | File | Purpose |
 |---|---|
-| `db/schema.sql` | Full schema for MySQL 8 plus the seed data from the archived `legacy/data.json`. |
-| `db/apply.mjs` | Connects with the `AIVEN_MYSQL_*` variables, applies the schema and prints row counts. |
+| `db/schema.sql` | Schema DDL for MySQL 8 (content tables plus `users`). |
+| `db/seed.sql` | Demo seed data (replaces all content rows, preserves `users`). |
+| `db/queries.sql` | All SQL queries used across the application, with comments. |
 | `db/db.md` | This guide. |
 
 ## 1. Create the Aiven service
@@ -43,23 +44,7 @@ AUTH_SECRET=a-long-random-string
 
 ## 2. Apply the schema
 
-Use one of these options.
-
-If your Aiven console has no **Query editor**, use the bundled script. It reads
-the same environment variables as the app and never prints credentials:
-
-```bash
-npm run db:apply
-```
-
-The script applies `db/schema.sql` and prints the row count for every table.
-
-Alternatives:
-
-**Aiven console Query editor:** paste all of `db/schema.sql` and run it.
-
-**MySQL client:** run from the repository root, with the variables above already
-present in your shell:
+Use the MySQL client, with the environment variables above already present in your shell:
 
 ```bash
 mysql \
@@ -72,40 +57,53 @@ mysql \
   < db/schema.sql
 ```
 
-The SQL creates the tables, loads the archived `legacy/data.json` content, and
-leaves the `users` table alone. Running it again refreshes the content tables and
-keeps existing accounts.
+The SQL creates the tables and leaves the `users` table alone. Running it again refreshes the content tables and keeps existing accounts.
+
+Load demo content with `db/seed.sql`:
+
+```bash
+mysql \
+  --host="$AIVEN_MYSQL_HOST" \
+  --port="${AIVEN_MYSQL_PORT:-3306}" \
+  --user="$AIVEN_MYSQL_USER" \
+  --password \
+  --ssl-mode=REQUIRED \
+  --database="$AIVEN_MYSQL_DATABASE" \
+  < db/seed.sql
+```
+
+`db/seed.sql` replaces all existing content rows but preserves `users` and user accounts.
 
 ## 3. Verify
 
 ```sql
-SELECT COUNT(*) FROM pandals;        -- 26
-SELECT COUNT(*) FROM starts;         -- 12
-SELECT COUNT(*) FROM foods;          -- 8
+SELECT COUNT(*) FROM pandals;        -- 56
+SELECT COUNT(*) FROM starts;         -- 23
+SELECT COUNT(*) FROM foods;          -- 30
 SELECT COUNT(*) FROM vibes;          -- 5
-SELECT COUNT(*) FROM time_options;   -- 3
+SELECT COUNT(*) FROM time_options;   -- 9
 SELECT COUNT(*) FROM travel_modes;   -- 4
-SELECT COUNT(*) FROM map_areas;      -- 11
-SELECT COUNT(*) FROM settings;       -- 7
+SELECT COUNT(*) FROM map_areas;      -- 23
+SELECT COUNT(*) FROM settings;       -- 9
 ```
 
 Then start the app with `npm run dev` and check `GET /api/data`. The response
-should return 26 pandals, 12 starts and 8 foods, and the terminal should not log
+should return 56 pandals, 23 starts and 30 foods, and the terminal should not log
 a MySQL read error.
 
 ## Tables
 
 | Table | Contents |
 |---|---|
-| `pandals` | 26 pandals with area, tagline, crowd level and planner grid coordinates. |
+| `pandals` | 56 pandals with area, tagline, crowd level and planner grid coordinates. |
 | `pandal_tags` | Vibe tags per pandal, ordered with `position`. |
-| `starts` | 12 start points, ordered with `position`. |
-| `foods` | 8 food stops with icon name and estimated price. |
+| `starts` | 23 start points, ordered with `position`. |
+| `foods` | 30 food stops with icon name and estimated price. |
 | `vibes` | 5 planner vibes. |
 | `time_options` | Duration choices and how many pandals each fits. |
 | `travel_modes` | 4 travel styles used by the itinerary engine. |
 | `map_areas` | Labels for the stylised SVG map. |
-| `settings` | JSON rows: `site`, `defaultPrefs`, `home`, `pandalGlyphs`, `crowdLabels`, `tagLabels`, `engine`. |
+| `settings` | JSON rows: `site`, `defaultPrefs`, `home`, `pandalGlyphs`, `crowdLabels`, `tagLabels`, `engine`, `dataProvenance`. |
 | `users` | Username, scrypt password hash and creation time. |
 
 Content tables use InnoDB, `utf8mb4` and `utf8mb4_unicode_ci`. The itinerary
@@ -153,7 +151,7 @@ without a deploy.
 
 ## Updating content
 
-The SQL seed was generated from `legacy/data.json`, which is now only an archive.
+The SQL seed lives in `db/seed.sql`; `legacy/data.json` is now only an archive.
 When product content changes, edit the rows in MySQL or update the matching
-`INSERT` statements in `db/schema.sql` and run `npm run db:apply` again. Editing
-`legacy/data.json` has no effect on the app.
+`INSERT` statements in `db/seed.sql` and reapply it with the MySQL client.
+Editing `legacy/data.json` has no effect on the app.
