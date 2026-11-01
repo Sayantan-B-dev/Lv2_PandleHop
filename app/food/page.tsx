@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function FoodPage() {
   const data = await getProductData();
   return (
-    <div className="page food-page">
+    <div className="page">
       <div className="shell">
         <div className="page-head">
           <p className="eyebrow">Food stops</p>

@@ -1,29 +1,27 @@
 import Link from "next/link";
 import FoodCard from "@/components/FoodCard";
+import HeroImage from "@/components/HeroImage";
 import Icon from "@/components/Icon";
 import Marquee from "@/components/Marquee";
 import PandalCard from "@/components/PandalCard";
 import { getProductData } from "@/lib/repository";
-import { fmtClock, fmtDur, fmtKm, fmtRupees } from "@/lib/format";
-import { generatePass } from "@/lib/itinerary";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const data = await getProductData();
-  const pass = generatePass(data, data.defaultPrefs);
   const picks = data.home.pickIds
     .map((id) => data.pandals.find((pandal) => pandal.id === id))
     .filter((pandal): pandal is NonNullable<typeof pandal> => Boolean(pandal));
-  const preview = pass.items.filter((item) => item.kind !== "leg").slice(0, 4);
   const teaserFoods = data.foods.slice(0, data.home.foodCount);
 
   return (
     <>
       <section className="hero-home">
+        <HeroImage />
         <div className="shell hero-home__grid">
           <div className="hero-copy">
-            <p className="eyebrow">Kolkata · {data.site.festival} planner</p>
+            <p className="eyebrow">Kolkata � {data.site.festival} planner</p>
             <h1>
               Your PandalHoppers night,
               <br />
@@ -39,62 +37,6 @@ export default async function HomePage() {
             <p className="note">{data.site.planningNote}</p>
           </div>
 
-          <div className="hero-visual">
-            <div className="hero-visual__glow" aria-hidden="true" />
-            <div className="route-preview">
-              <div className="route-preview__head">
-                <span className="chip">Tonight&apos;s route</span>
-                <span>{pass.pandalIds.length} stops · {data.defaultPrefs.hours} hours</span>
-              </div>
-              <ol className="route-preview__list">
-                {preview.map((item, index) => {
-                  if (item.kind === "start") {
-                    return (
-                      <li key={`preview-${index}`}>
-                        <span className="route-preview__dot" />
-                        <div>
-                          <strong>Start · {item.name}</strong>
-                          <small>{fmtClock(item.time)} · meeting point</small>
-                        </div>
-                      </li>
-                    );
-                  }
-                  if (item.kind === "pandal") {
-                    const pandal = data.pandals.find((entry) => entry.id === item.pandalId);
-                    if (!pandal) return null;
-                    return (
-                      <li key={`preview-${index}`}>
-                        <span className="route-preview__dot" />
-                        <div>
-                          <strong>{pandal.name}</strong>
-                          <small>{pandal.tagline}</small>
-                        </div>
-                      </li>
-                    );
-                  }
-                  if (item.kind === "food") {
-                    const food = data.foods.find((entry) => entry.id === item.foodId);
-                    if (!food) return null;
-                    return (
-                      <li key={`preview-${index}`}>
-                        <span className="route-preview__dot route-preview__dot--gold" />
-                        <div>
-                          <strong>{food.name}</strong>
-                          <small>{food.kind}</small>
-                        </div>
-                      </li>
-                    );
-                  }
-                  return null;
-                })}
-              </ol>
-              <div className="route-preview__foot">
-                <span>{fmtDur(pass.totalMins)}</span>
-                <span>{fmtKm(pass.walkKm)} walk</span>
-                <span>{fmtRupees(pass.cost)}</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="shell hero-stats">
