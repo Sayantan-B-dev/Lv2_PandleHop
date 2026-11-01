@@ -492,17 +492,17 @@ h1, h2, h3, h4 {
 .hero-image__layer {
   position: absolute;
   top: -10%;
-  right: 0;
+  right: -10%;
   bottom: -10%;
-  left: 0%;
+  left:10%;
   background-image:
-    linear-gradient(0deg, rgba(20, 11, 13, 0.9) 0%, rgba(20, 11, 13, 0.8) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.418) 0%, rgba(0, 0, 0, 0.548) 100%),
     url("https://images.unsplash.com/photo-1616074385287-67f6fb9e9eb8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1800");
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
-  -webkit-mask-image: radial-gradient(circle at 70% 40%, black 48%, transparent 82%);
-  mask-image: radial-gradient(circle at 70% 40%, black 48%, transparent 82%);
+  -webkit-mask-image: radial-gradient(circle at 100% 40%, black 48%, transparent 82%);
+  mask-image: radial-gradient(circle at 100% 40%, black 48%, transparent 82%);
   -webkit-mask-size: cover;
   mask-size: cover;
   -webkit-mask-repeat: no-repeat;

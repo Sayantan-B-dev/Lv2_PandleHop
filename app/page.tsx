@@ -21,7 +21,7 @@ export default async function HomePage() {
         <HeroImage />
         <div className="shell hero-home__grid">
           <div className="hero-copy">
-            <p className="eyebrow">Kolkata � {data.site.festival} planner</p>
+            <p className="eyebrow">Kolkata - {data.site.festival} planner</p>
             <h1>
               Your PandalPass night,
               <br />
