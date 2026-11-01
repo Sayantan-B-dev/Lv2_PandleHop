@@ -72,8 +72,8 @@ export default function RouteClient({ data }: { data: PandalPassData }) {
         <div className="shell empty-state">
           <p className="eyebrow">Route map</p>
           <h1>No route yet.</h1>
-          <p>Generate a PandalHoppers Pass and the map will fill in with your stops.</p>
-          <Link className="btn btn--wine" href="/planner">Open the PandalHoppers planner</Link>
+          <p>Generate a PandalPass Pass and the map will fill in with your stops.</p>
+          <Link className="btn btn--wine" href="/planner">Open the PandalPass planner</Link>
         </div>
       </div>
     );
@@ -98,7 +98,7 @@ export default function RouteClient({ data }: { data: PandalPassData }) {
         </div>
 
         <div className="route-layout">
-          <section className="map-card" aria-label="Stylised Kolkata PandalHoppers route map">
+          <section className="map-card" aria-label="Stylised Kolkata PandalPass route map">
             <RouteMap data={data} pass={pass} selected={selection} located={located} onSelect={select} />
 
             <div className="legend" aria-label="Map legend">

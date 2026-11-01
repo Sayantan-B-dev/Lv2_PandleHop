@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Route Map",
-  description: "See your PandalHoppers route on a stylised Kolkata map with numbered stops, crowd estimates and metro lines.",
+  description: "See your PandalPass route on a stylised Kolkata map with numbered stops, crowd estimates and metro lines.",
 };
 
 export default async function RoutePage() {

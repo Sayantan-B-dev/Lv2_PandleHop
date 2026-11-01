@@ -1,8 +1,8 @@
-# PandalHoppers: Future Scope & Enhancements
+# PandalPass: Future Scope & Enhancements
 
 ## 6.1 Overview
 
-This document outlines planned enhancements and future development directions for the PandalHoppers application. All features are designed to be compatible with the existing database architecture and TypeScript type system.
+This document outlines planned enhancements and future development directions for the PandalPass application. All features are designed to be compatible with the existing database architecture and TypeScript type system.
 
 **Last Updated**: October 2026 (post-rebranding from PandalPass)
 
@@ -56,7 +56,7 @@ POST /api/share => returns encoded link
 
 **Use Case**:
 ```
-Share link: https://pandalhoppers.app/share/abc123def456
+Share link: https://pandalpass.app/share/abc123def456
 => Loads with predefined prefs, shows same route
 ```
 
@@ -69,7 +69,7 @@ Share link: https://pandalhoppers.app/share/abc123def456
 **Description**: Integrate live crowd estimation data (beyond planning estimates) via third-party APIs or user-generated data.
 
 **Database Changes**:
-- Add `crowd_source` ENUM column to `pandalhoppers.pandals`: `'estimate'|'live'|'user_reported'`
+- Add `crowd_source` ENUM column to `pandalpass.pandals`: `'estimate'|'live'|'user_reported'`
 - Add `live_crowd_count` INT column (nullable)
 - Add `last_crowd_update` TIMESTAMP column
 
@@ -94,7 +94,7 @@ Share link: https://pandalhoppers.app/share/abc123def456
 **Description**: Extend from single-night planning to multi-day Durga Pujo festival planning (celebrated over 5 days).
 
 **Database Changes**:
-- Add `day_index` INT to `pandalhoppers.pass` (0-4 for 5 days)
+- Add `day_index` INT to `pandalpass.pass` (0-4 for 5 days)
 - Add `festival_duration` default 5
 - Modify `generatePass` to accept `dayIndex` parameter
 
@@ -140,7 +140,7 @@ Share link: https://pandalhoppers.app/share/abc123def456
 **Description**: Allow users to save favorite pandals for quick access in future planning.
 
 **Database Changes**:
-- Add `pandalhoppers.favorites` table:
+- Add `pandalpass.favorites` table:
   - `user_id` INT (FK)
   - `pandal_id` INT (FK)
   - `created_at` TIMESTAMP
@@ -209,8 +209,8 @@ Share link: https://pandalhoppers.app/share/abc123def456
 **Description**: User can see friends' routes, compare preferences, group planning.
 
 **Database Changes**:
-- `pandalhoppers.friends` table (self-referential)
-- `pandalhoppers.shared_passes` table
+- `pandalpass.friends` table (self-referential)
+- `pandalpass.shared_passes` table
 - Privacy settings per user
 
 **Frontend Changes**:
@@ -319,18 +319,18 @@ Share link: https://pandalhoppers.app/share/abc123def456
 
 ## 6.7 Rebranding Considerations for Future Features
 
-All future development should consider the **PandalHoppers** brand:
+All future development should consider the **PandalPass** brand:
 
-- **Naming**: Use "PandalHoppers" consistently in UI, API, docs
-- **Database**: Table names use `pandalhoppers.*` convention
-- **API responses**: `"site": { "name": "PandalHoppers" }`
+- **Naming**: Use "PandalPass" consistently in UI, API, docs
+- **Database**: Table names use `pandalpass.*` convention
+- **API responses**: `"site": { "name": "PandalPass" }`
 - **Visual design**: Maintain Neo-Brutalist aesthetic established post-rebrand
 - **Cultural respect**: Continue referencing "Durga Pujo" appropriately
 
 **Migration Path**: If reverting or supporting both brands, use `site.name` field in JSONB to differentiate.
 
 ---
-*Future scope document for PandalHoppers project.*
+*Future scope document for PandalPass project.*
 *All features designed for database-first architecture.*
-*Rebranded from PandalPass to PandalHoppers, October 2026.*
+*Rebranded from PandalPass to PandalPass, October 2026.*
 *Prioritized for college assignment or production roadmap.*

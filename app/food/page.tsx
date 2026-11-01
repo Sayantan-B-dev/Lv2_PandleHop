@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Food Stops",
-  description: "Food stops for a Kolkata PandalHoppers night: bhog, phuchka, rolls, mishti and late-night cha.",
+  description: "Food stops for a Kolkata PandalPass night: bhog, phuchka, rolls, mishti and late-night cha.",
 };
 
 export default async function FoodPage() {
@@ -19,7 +19,7 @@ export default async function FoodPage() {
           <p className="eyebrow">Food stops</p>
           <h1>Refuel between pandals</h1>
           <p>
-            Bhog, phuchka, kathi rolls, mishti and late-night cha, the edible side of a PandalHoppers crawl.
+            Bhog, phuchka, kathi rolls, mishti and late-night cha, the edible side of a PandalPass crawl.
           </p>
         </div>
         <p className="note">Prices are rough per-person estimates.</p>

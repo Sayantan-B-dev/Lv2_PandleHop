@@ -1,10 +1,10 @@
-# PandalHoppers: Durga Pujo Route Planner
+# PandalPass: Durga Pujo Route Planner
 ## Database-Focused Architecture Overview
 
 ---
 ## 1. Project Overview & Purpose
 
-**PandalHoppers** is a Durga Pujo route planning application for Kolkata that helps users plan pandal-hopping nights. The application is database-first, with all data stored in MySQL (Aiven for MySQL 8). The Next.js frontend consumes this data through API routes.
+**PandalPass** is a Durga Pujo route planning application for Kolkata that helps users plan pandal-hopping nights. The application is database-first, with all data stored in MySQL (Aiven for MySQL 8). The Next.js frontend consumes this data through API routes.
 
 **Core Problem**: Users need help planning efficient pandal-hopping routes considering:
 - Starting location (Barasat, Behala, etc.)
@@ -23,20 +23,20 @@
 The database uses a **JSONB `site` column** to store configuration:
 
 ```sql
-('site', '{"name":"PandalHoppers","festival":"Durga Pujo 2026","planningNote":"Crowd, time and cost are planning estimates, not live data.","storage":{"prefs":"pandalhoppers.prefs","pass":"pandalhoppers.pass"}}')
+('site', '{"name":"PandalPass","festival":"Durga Pujo 2026","planningNote":"Crowd, time and cost are planning estimates, not live data.","storage":{"prefs":"pandalpass.prefs","pass":"pandalpass.pass"}}')
 ```
 
 ### 2.2 Site Configuration Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `name` | string | App identifier: "PandalHoppers" |
+| `name` | string | App identifier: "PandalPass" |
 | `festival` | string | "Durga Pujo 2026" |
 | `planningNote` | string | Warning about estimate nature |
-| `storage.prefs` | string | Preferences table key: "pandalhoppers.prefs" |
-| `storage.pass` | string | Pass data table key: "pandalhoppers.pass" |
+| `storage.prefs` | string | Preferences table key: "pandalpass.prefs" |
+| `storage.pass` | string | Pass data table key: "pandalpass.pass" |
 
-### 2.3 Preferences Table (`pandalhoppers.prefs`)
+### 2.3 Preferences Table (`pandalpass.prefs`)
 
 Stores user session preferences:
 
@@ -50,7 +50,7 @@ Stores user session preferences:
 | `food` | boolean | Whether to include food stop |
 | `created_at` | datetime | Timestamp |
 
-### 2.4 Pass Data Table (`pandalhoppers.pass`)
+### 2.4 Pass Data Table (`pandalpass.pass`)
 
 Stores generated routes:
 
@@ -196,7 +196,7 @@ interface Pass {
 3. **Database schema isolation**:
    - Single MySQL database, multiple app instances possible
    - `site` column distinguishes different deployments
-   - Table names derived from app name: `pandalhoppers.prefs`, `pandalhoppers.pass`
+   - Table names derived from app name: `pandalpass.prefs`, `pandalpass.pass`
 
 ---
 ## 4. Type System & Interface Contracts
@@ -205,12 +205,12 @@ interface Pass {
 
 ```typescript
 export interface SiteConfig {
-  name: string          // "PandalHoppers"
+  name: string          // "PandalPass"
   festival: string      // "Durga Pujo 2026"
   planningNote: string  // Estimate disclaimer
   storage: {
-    prefs: string       // "pandalhoppers.prefs"
-    pass: string        // "pandalhoppers.pass"
+    prefs: string       // "pandalpass.prefs"
+    pass: string        // "pandalpass.pass"
   }
 }
 
@@ -301,8 +301,8 @@ async function readFromDatabase(): Promise<PandalPassData> {
 
 ### 5.3 Local Browser Persistence
 
-- **Pass storage**: `localStorage` or `sessionStorage` under key `pandalhoppers.pass`
-- **Preferences**: Same storage pattern for `pandalhoppers.prefs`
+- **Pass storage**: `localStorage` or `sessionStorage` under key `pandalpass.pass`
+- **Preferences**: Same storage pattern for `pandalpass.prefs`
 - **Benefits**: 
   - Instant load on return visits
   - Works offline for cached data
@@ -801,6 +801,6 @@ User: Views route, can share/edit
 | passes (history) | 5,000-20,000 | 500 bytes | ~10MB |
 
 ---
-*Document generated as pptx.md content source for PandalHoppers presentation.*
+*Document generated as pptx.md content source for PandalPass presentation.*
 *Database-focused content, minimal frontend/UI explanation.*
 *All data handling described from backend/db perspective.*

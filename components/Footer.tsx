@@ -21,7 +21,7 @@ export default function Footer({ siteName, note }: { siteName: string; note: str
             </span>
             <span className="brand__name">{siteName}</span>
           </Link>
-          <p>A planning companion for Kolkata&apos;s PandalHoppers. {note}</p>
+          <p>A planning companion for Kolkata&apos;s PandalPass. {note}</p>
         </div>
         <nav className="footer-nav" aria-label="Footer">
           {footerLinks.map((link) => (
@@ -32,8 +32,8 @@ export default function Footer({ siteName, note }: { siteName: string; note: str
         </nav>
       </div>
       <div className="shell site-footer__bottom">
-        <span>{siteName} · a PandalHoppers planning project</span>
-        <span>Built for the city that never sleeps during PandalHoppers.</span>
+        <span>{siteName} · a PandalPass planning project</span>
+        <span>Built for the city that never sleeps during PandalPass.</span>
       </div>
     </footer>
   );

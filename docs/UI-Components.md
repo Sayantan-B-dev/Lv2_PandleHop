@@ -1,8 +1,8 @@
-# PandalHoppers: UI Components Documentation
+# PandalPass: UI Components Documentation
 
 ## 7.1 Component Overview
 
-This document describes all React UI components in the PandalHoppers application, focusing on data-driven rendering, TypeScript interfaces, and the rebranding from PandalPass (completed October 2026).
+This document describes all React UI components in the PandalPass application, focusing on data-driven rendering, TypeScript interfaces, and the rebranding from PandalPass (completed October 2026).
 
 **Total Components**: 15+ reusable components
 **Primary Styling**: Tailwind CSS + Neo-Brutalist design system
@@ -21,7 +21,7 @@ This document describes all React UI components in the PandalHoppers application
 **Props**:
 ```typescript
 interface HeaderProps {
-  siteName: string  // e.g., "PandalHoppers"
+  siteName: string  // e.g., "PandalPass"
 }
 ```
 
@@ -29,7 +29,7 @@ interface HeaderProps {
 - Brand link to home page
 - Responsive navigation menu (collapses to hamburger)
 - Account navigation (Login/Register links)
-- CTA button: "Plan my PandalHoppers" (rebranded from "Plan my Pujo")
+- CTA button: "Plan my PandalPass" (rebranded from "Plan my Pujo")
 - Search/iconography: SVG icons throughout
 - Aria labels for accessibility
 
@@ -42,10 +42,10 @@ interface HeaderProps {
 
 ```
 ┌─────────────────────────────────────┐
-│  PandalHoppers                        │  ← brand
+│  PandalPass                        │  ← brand
 │  ←  Home  Planner Pass Explore Food  │  ← nav
 │  [Login]                              │  ← auth
-│  [Plan my PandalHoppers]              │  ← CTA
+│  [Plan my PandalPass]              │  ← CTA
 └─────────────────────────────────────┘
 ```
 
@@ -62,29 +62,29 @@ interface HeaderProps {
 **Props**:
 ```typescript
 interface FooterProps {
-  siteName: string      // e.g., "PandalHoppers"
+  siteName: string      // e.g., "PandalPass"
   note: string          // e.g., "Crowd, time and cost are estimates"
 }
 ```
 
 **Key Features**:
-- Brand display: "`{siteName}` · a PandalHoppers planning project"
+- Brand display: "`{siteName}` · a PandalPass planning project"
 - Footer links: Home, Planner, Explore, Food, Route, My Pass
-- Bottom text: "Built for the city that never sleeps during PandalHoppers."
+- Bottom text: "Built for the city that never sleeps during PandalPass."
 - Three-column layout on desktop, single column on mobile
 
 **Rendering**:
 
 ```
 ┌──────────────────────────────────────┐
-│ PandalHoppers · a PandalHoppers       │
+│ PandalPass · a PandalPass       │
 │ planning project                       │
 │                                        │
 │  Home   |   Planner   |   Explore   │
 │  Food   |   Route     |   My Pass     │
 │                                        │
 │  Built for the city that never         │
-│  sleeps during PandalHoppers.          │
+│  sleeps during PandalPass.          │
 └──────────────────────────────────────┘
 ```
 
@@ -131,7 +131,7 @@ interface PassClientProps {
 **Key Rendering Sections**:
 
 1. **Pass Band** (top banner):
-   - Metadata: "Your PandalHoppers Pass" (rebranded)
+   - Metadata: "Your PandalPass Pass" (rebranded)
    - Summary metrics: hours · pandals · food stops
    - Action buttons: View route, Edit plan, Share
 
@@ -149,7 +149,7 @@ interface PassClientProps {
 4. **Side Asides**:
    - Night summary grid (pandals count, food stops, walked distance)
    - Route pills (crowd level, travel mode, food included)
-   - "Until next PandalHoppers" footer text
+   - "Until next PandalPass" footer text
    - Route at a glance link to map
 
 5. **Share Functionality**:
@@ -327,7 +327,7 @@ interface PlannerClientProps {
 - Selected mode: `prefs.mode === mode.id`
 - Food toggle: `prefs.food` on/off
 - Progress bar: all steps 1-4 highlighted
-- CTA: "Back" / "Generate my PandalHoppers Pass" (rebranded)
+- CTA: "Back" / "Generate my PandalPass Pass" (rebranded)
 
 **Progress Bar**:
 ```tsx
@@ -340,7 +340,7 @@ interface PlannerClientProps {
 ```typescript
 // After all 4 steps, generates pass and redirects to /pass
 <button className="btn btn--wine" type="button" onClick={next}>
-  {busy ? "Building route" : step === TOTAL_STEPS ? "Generate my PandalHoppers Pass" : "Next"}
+  {busy ? "Building route" : step === TOTAL_STEPS ? "Generate my PandalPass Pass" : "Next"}
 </button>
 ```
 
@@ -387,7 +387,7 @@ interface ExploreClientProps {
 4. **Call to Action**:
    ```tsx
    <Link className="btn btn--wine" href="/planner">
-     Plan my PandalHoppers
+     Plan my PandalPass
    </Link>
    ```
    (Rebrandled from "Plan my Pujo")
@@ -441,8 +441,8 @@ interface ExploreClientProps {
    - spellCheck: false
 
 3. **Auth Prompt Text** (rebranded):
-   - Login mode: `"Use your PandalHoppers username and password to open a session."`
-   - Register mode: `"Join the PandalHoppers crawl."` (was "Join the crawl.")
+   - Login mode: `"Use your PandalPass username and password to open a session."`
+   - Register mode: `"Join the PandalPass crawl."` (was "Join the crawl.")
 
 4. **Submit Button**:
    - Disabled: `busy` state
@@ -867,12 +867,12 @@ router.refresh()
 ## 7.6 Rebranding Status in Components
 
 **Completed** (October 2026):
-- ✅ `Header.tsx`: "Plan my Pujo" → "Plan my PandalHoppers"
-- ✅ `Footer.tsx`: "Durga Pujo" → "PandalHoppers" (planning project)
+- ✅ `Header.tsx`: "Plan my Pujo" → "Plan my PandalPass"
+- ✅ `Footer.tsx`: "Durga Pujo" → "PandalPass" (planning project)
 - ✅ `LoginClient.tsx`: Auth prompts rebranded
-- ✅ `PlannerClient.tsx`: "Generate my Pujo Pass" → "Generate my PandalHoppers Pass"
+- ✅ `PlannerClient.tsx`: "Generate my Pujo Pass" → "Generate my PandalPass Pass"
 - ✅ `ExploreClient.tsx`: CTA rebranded
-- ✅ `PassClient.tsx`: Em dash removed, "Pujo Pass" → "PandalHoppers Pass"
+- ✅ `PassClient.tsx`: Em dash removed, "Pujo Pass" → "PandalPass Pass"
 - ✅ `RouteClient.tsx`: Empty state text updated
 - ✅ `RouteMap.tsx`: Aria labels updated
 - ✅ `PlannerClient.tsx`: "Pujo planner" aria-label updated
@@ -891,7 +891,7 @@ router.refresh()
 - Not part of app branding rebrand
 
 ---
-*UI Components documentation for PandalHoppers.*
+*UI Components documentation for PandalPass.*
 *Rebranded from PandalPass, October 2026.*
 *All visible strings updated; type names preserved.*
 *Suitable for college assignment or developer handoff.*

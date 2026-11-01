@@ -1,10 +1,10 @@
-# PandalHoppers: Durga Pujo Route Planner
+# PandalPass: Durga Pujo Route Planner
 
 ## Project Summary
 
-**PandalHoppers** is a web application for planning Durga Pujo pandal-hopping routes in Kolkata. The application helps users plan efficient night-out routes considering starting location, available time, mood/vibe preferences, travel mode, and food stops.
+**PandalPass** is a web application for planning Durga Pujo pandal-hopping routes in Kolkata. The application helps users plan efficient night-out routes considering starting location, available time, mood/vibe preferences, travel mode, and food stops.
 
-**Rebranded from PandalPass to PandalHoppers** (October 2026) - complete visual and textual rebranding of the application name and associated references.
+**Rebranded from PandalPass to PandalPass** (October 2026) - complete visual and textual rebranding of the application name and associated references.
 
 ---
 
@@ -49,7 +49,7 @@ During Durga Pujo (Kolkata's major festival), groups of friends face challenges 
 
 ## 1.5 Rebranding Status (October 2026)
 
-- **App name**: PandalPass → PandalHoppers
+- **App name**: PandalPass → PandalPass
 - **Em dash removal**: All `—` removed from `app/` and `components/`
 - **Type names preserved**: `PandalPassData` interface kept as type definition
 - **Legacy directory**: `legacy/` retained for reference, not part of rebrand scope

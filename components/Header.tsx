@@ -77,7 +77,7 @@ export default function Header({ siteName }: { siteName: string }) {
 
         <div className="site-header__actions">
           <Link className="btn btn--gold btn--sm" href="/planner">
-            Plan my PandalHoppers
+            Plan my PandalPass
           </Link>
         </div>
       </div>

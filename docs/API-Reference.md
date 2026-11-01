@@ -1,4 +1,4 @@
-# PandalHoppers: API Reference
+# PandalPass: API Reference
 
 ## 4.1 Base URL
 
@@ -163,7 +163,7 @@ Content-Type: application/json
   },
   "pandalPassData": {
     "site": {
-      "name": "PandalHoppers",
+      "name": "PandalPass",
       "festival": "Durga Pujo 2026"
     },
     "pandals": [...],
@@ -292,7 +292,7 @@ Content-Type: application/json
 4. Validate `mode` exists in modes table
 5. Call `normalizePrefs(data, savedPrefs)` to merge with defaults
 6. Call `generatePass(data, prefs)` itinerary engine
-7. Save `pass` + `prefs` to database (`pandalhoppers.pass` + `pandalhoppers.prefs`)
+7. Save `pass` + `prefs` to database (`pandalpass.pass` + `pandalpass.prefs`)
 8. Return pass object + redirect URL
 
 ---
@@ -358,12 +358,12 @@ Content-Type: application/json
 
 {
   "site": {
-    "name": "PandalHoppers",
+    "name": "PandalPass",
     "festival": "Durga Pujo 2026",
     "planningNote": "Crowd, time and cost are planning estimates, not live data.",
     "storage": {
-      "prefs": "pandalhoppers.prefs",
-      "pass": "pandalhoppers.pass"
+      "prefs": "pandalpass.prefs",
+      "pass": "pandalpass.pass"
     }
   },
   "pandals": [
@@ -517,7 +517,7 @@ Content-Type: application/json
 - **Idempotent**: Same request can be safely retried
 
 ---
-*API documentation for PandalHoppers project.*
+*API documentation for PandalPass project.*
 *Suitable for college assignment or developer pitch.*
 *All endpoints tested with POST/GET methods.*
 *Authentication via http-only cookies.*

@@ -1,4 +1,4 @@
-# PandalHoppers: Development Guide
+# PandalPass: Development Guide
 
 ## 5.1 Prerequisites
 
@@ -16,8 +16,8 @@
 ### 5.2.1 Clone Repository
 
 ```bash
-git clone https://github.com/your-org/pandalhoppers.git
-cd pandalhoppers
+git clone https://github.com/your-org/pandalpass.git
+cd pandalpass
 ```
 
 ### 5.2.2 Install Dependencies
@@ -43,7 +43,7 @@ MYSQL_PASSWORD=your_aiven_password
 MYSQL_DATABASE=defaultdb
 
 # Application
-NEXT_PUBLIC_APP_NAME=PandalHoppers
+NEXT_PUBLIC_APP_NAME=PandalPass
 NODE_ENV=development
 ```
 
@@ -65,8 +65,8 @@ npx ts-node db/apply.mjs
 
 This will create:
 - `app_config` table with site JSONB
-- `pandalhoppers.prefs` table
-- `pandalhoppers.pass` table
+- `pandalpass.prefs` table
+- `pandalpass.pass` table
 - `users` table
 - And all other tables defined in `db/schema.sql`
 
@@ -107,7 +107,7 @@ next dev
 ## 5.3 Project Structure
 
 ```
-pandalhoppers/
+pandalpass/
 ├── app/                    # Next.js App Router pages
 │   ├── layout.tsx          # Root layout + metadata
 │   ├── page.tsx            # Home dashboard
@@ -279,7 +279,7 @@ async function readFromDatabase(): Promise<PandalPassData> {
 1. **Add to database**:
 
 ```sql
-INSERT INTO pandalhoppers.vibes (id, label, icon)
+INSERT INTO pandalpass.vibes (id, label, icon)
 VALUES ('chill', 'Chill', 'snowflake');
 ```
 
@@ -352,7 +352,7 @@ MYSQL_PORT=25060
 MYSQL_USER=avn_admin
 MYSQL_PASSWORD=your-password
 MYSQL_DATABASE=defaultb
-NEXT_PUBLIC_APP_NAME=PandalHoppers
+NEXT_PUBLIC_APP_NAME=PandalPass
 ```
 
 **Note**: Prefix with `NEXT_PUBLIC_` for client-side access (if needed)
@@ -396,7 +396,7 @@ NEXT_PUBLIC_APP_NAME=PandalHoppers
 - **Avoid re-renders**: Use `React.memo` for pure components
 
 ---
-*Development guide for PandalHoppers project.*
+*Development guide for PandalPass project.*
 *Suitable for college assignment or new developer onboarding.*
 *Includes rebranding from PandalPass (Oct 2026).*
 *Last updated: October 2026.*

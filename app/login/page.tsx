@@ -5,7 +5,7 @@ import { readSession } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Sign in",
-  description: "Sign in to PandalHoppers with your username and password, or create an account.",
+  description: "Sign in to PandalPass with your username and password, or create an account.",
 };
 
 export default async function LoginPage() {
@@ -20,7 +20,7 @@ export default async function LoginPage() {
           <p className="eyebrow">Why sign in</p>
           <h2>An account, not a data grab.</h2>
           <ul className="auth-aside__list">
-            <li>Usernames and scrypt password hashes live in the PandalHoppers MySQL database.</li>
+            <li>Usernames and scrypt password hashes live in the PandalPass MySQL database.</li>
             <li>Your session is a signed, http-only cookie that lasts seven days.</li>
             <li>Only a username and password are stored. No email, no tracking, no profile.</li>
           </ul>

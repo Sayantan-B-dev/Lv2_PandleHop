@@ -58,7 +58,7 @@ export default function PageLoader() {
       <div className="pujo-loader__overlay" />
       <div className="pujo-loader__inner">
         <MorphingInfinity className="pujo-loader__spinner" />
-        <span className="pujo-loader__label">PandalHoppers</span>
+        <span className="pujo-loader__label">PandalPass</span>
       </div>
     </div>
   );

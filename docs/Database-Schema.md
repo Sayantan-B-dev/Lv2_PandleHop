@@ -1,12 +1,12 @@
-# PandalHoppers: Database Schema Documentation
+# PandalPass: Database Schema Documentation
 
 ## 3.1 Overview
 
 The application uses **Aiven for MySQL 8** as the primary data store. The schema is designed around a JSONB `site` column that stores application configuration, while detailed data is normalized into separate tables.
 
-**Database Name**: `pandalhoppers` (derived from app name, stored as `pandalpass` in legacy schema)
+**Database Name**: `pandalpass` (derived from app name, stored as `pandalpass` in legacy schema)
 
-**Last Rebranded**: October 2026 (PandalPass → PandalHoppers)
+**Last Rebranded**: October 2026 (PandalPass → PandalPass)
 
 ---
 
@@ -27,28 +27,28 @@ CREATE TABLE app_config (
 
 | id | site |
 |----|------|
-| 1 | `{"name":"PandalHoppers","festival":"Durga Pujo 2026","planningNote":"Crowd, time and cost are planning estimates, not live data.","storage":{"prefs":"pandalhoppers.prefs","pass":"pandalhoppers.pass"}}` |
+| 1 | `{"name":"PandalPass","festival":"Durga Pujo 2026","planningNote":"Crowd, time and cost are planning estimates, not live data.","storage":{"prefs":"pandalpass.prefs","pass":"pandalpass.pass"}}` |
 
 **Field Breakdown**:
 
 | Field | Type | Description | Example |
 |-------|------|-------------|---------|
-| `name` | string | App identifier | `"PandalHoppers"` |
+| `name` | string | App identifier | `"PandalPass"` |
 | `festival` | string | Festival name | `"Durga Pujo 2026"` |
 | `planningNote` | string | Estimate disclaimer | `"Crowd, time and cost are planning estimates, not live data."` |
-| `storage.prefs` | string | Preferences table key | `"pandalhoppers.prefs"` |
-| `storage.pass` | string | Pass data table key | `"pandalhoppers.pass"` |
+| `storage.prefs` | string | Preferences table key | `"pandalpass.prefs"` |
+| `storage.pass` | string | Pass data table key | `"pandalpass.pass"` |
 
 **Purpose**: Enables multiple app instances in one database by differentiating via `name` field.
 
 ---
 
-## 3.3 Preferences Table (`pandalhoppers.prefs`)
+## 3.3 Preferences Table (`pandalpass.prefs`)
 
 Stores user session preferences for route planning.
 
 ```sql
-CREATE TABLE pandalhoppers.prefs (
+CREATE TABLE pandalpass.prefs (
   user_id INT NOT NULL,
   start VARCHAR(100) NOT NULL,
   vibes JSONB NOT NULL DEFAULT '[]',
@@ -82,12 +82,12 @@ CREATE TABLE pandalhoppers.prefs (
 
 ---
 
-## 3.4 Pass Data Table (`pandalhoppers.pass`)
+## 3.4 Pass Data Table (`pandalpass.pass`)
 
 Stores generated routes with complete itinerary information.
 
 ```sql
-CREATE TABLE pandalhoppers.pass (
+CREATE TABLE pandalpass.pass (
   user_id INT NOT NULL,
   start_point JSONB NOT NULL,
   pandal_ids JSONB NOT NULL DEFAULT '[]',
@@ -172,7 +172,7 @@ CREATE TABLE users (
 Core pandal database with geographical and descriptive data.
 
 ```sql
-CREATE TABLE pandalhoppers.pandals (
+CREATE TABLE pandalpass.pandals (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   area VARCHAR(100) NOT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE pandalhoppers.pandals (
 Predefined launch points for route planning.
 
 ```sql
-CREATE TABLE pandalhoppers.starts (
+CREATE TABLE pandalpass.starts (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   x FLOAT NOT NULL,
@@ -253,7 +253,7 @@ CREATE TABLE pandalhoppers.starts (
 User preference categories for pandal filtering.
 
 ```sql
-CREATE TABLE pandalhoppers.vibes (
+CREATE TABLE pandalpass.vibes (
   id VARCHAR(50) PRIMARY KEY,
   label VARCHAR(50) NOT NULL,
   icon VARCHAR(50) NOT NULL
@@ -287,7 +287,7 @@ CREATE TABLE pandalhoppers.vibes (
 Travel mode options for route legs.
 
 ```sql
-CREATE TABLE pandalhoppers.modes (
+CREATE TABLE pandalpass.modes (
   id VARCHAR(50) PRIMARY KEY,
   label VARCHAR(50) NOT NULL,
   icon VARCHAR(50) NOT NULL
@@ -319,7 +319,7 @@ CREATE TABLE pandalhoppers.modes (
 Food stop options between pandals.
 
 ```sql
-CREATE TABLE pandalhoppers.foods (
+CREATE TABLE pandalpass.foods (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   kind VARCHAR(50) NOT NULL,
@@ -359,7 +359,7 @@ CREATE TABLE pandalhoppers.foods (
 Geographical divisions on the stylised Kolkata map.
 
 ```sql
-CREATE TABLE pandalhoppers.map_areas (
+CREATE TABLE pandalpass.map_areas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   label VARCHAR(50) NOT NULL,
   x FLOAT NOT NULL,
@@ -383,22 +383,22 @@ CREATE TABLE pandalhoppers.map_areas (
 ## 3.12 Entity-Relationship Summary
 
 ```
-users 1:N pandalhoppers.prefs
-users 1:N pandalhoppers.pass
-pandalhoppers.prefs 1:1 pandalhoppers.pass
-pandalhoppers.pandals 1:N (referenced via IDs)
-pandalhoppers.starts 1:N (referenced via name)
-pandalhoppers.vibes 1:N (referenced via ID)
-pandalhoppers.modes 1:N (referenced via ID)
-pandalhoppers.foods 1:N (referenced via ID)
+users 1:N pandalpass.prefs
+users 1:N pandalpass.pass
+pandalpass.prefs 1:1 pandalpass.pass
+pandalpass.pandals 1:N (referenced via IDs)
+pandalpass.starts 1:N (referenced via name)
+pandalpass.vibes 1:N (referenced via ID)
+pandalpass.modes 1:N (referenced via ID)
+pandalpass.foods 1:N (referenced via ID)
 ```
 
 **Key Points**:
 
 - **Minimal joins**: Most data fetched via single `getProductData()` call
 - **JSONB flexibility**: Preferences and pass data stored as JSON for schema flexibility
-- **Derived table names**: `pandalhoppers.*` vs legacy `pandalpass.*`
-- **Cache key**: Site name (`PandalHoppers`) differentiates instances
+- **Derived table names**: `pandalpass.*` vs legacy `pandalpass.*`
+- **Cache key**: Site name (`PandalPass`) differentiates instances
 
 ---
 
@@ -498,9 +498,9 @@ applySchema();
 ## 3.16 Rebranding Impact on Database
 
 **Changed**: 
-- Table references: `pandalpass.*` → `pandalhoppers.*` in code comments/docs
-- Site name in JSONB: `"PandalPass"` → `"PandalHoppers"`
-- Storage keys: `"pandalpass.prefs"` → `"pandalhoppers.prefs"`
+- Table references: `pandalpass.*` → `pandalpass.*` in code comments/docs
+- Site name in JSONB: `"PandalPass"` → `"PandalPass"`
+- Storage keys: `"pandalpass.prefs"` → `"pandalpass.prefs"`
 
 **Unchanged** (intentional):
 - Table structure (no schema changes needed)
@@ -510,9 +510,9 @@ applySchema();
 - `expires_at` cache strategy
 - scrypt password hashing
 
-**Migration Note**: Existing deployments with `pandalpass` site name will continue to work; new deployments use `pandalhoppers`. Dual-instance possible via `name` field in `site` JSONB.
+**Migration Note**: Existing deployments with `pandalpass` site name will continue to work; new deployments use `pandalpass`. Dual-instance possible via `name` field in `site` JSONB.
 
 ---
-*Document generated for PandalHoppers project documentation.*
+*Document generated for PandalPass project documentation.*
 *Database-focused, suitable for college assignment or project pitch.*
 *Last updated: October 2026, rebranding from PandalPass.*

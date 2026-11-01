@@ -1,4 +1,4 @@
-# PandalHoppers: System Architecture
+# PandalPass: System Architecture
 
 ## 2.1 High-Level Architecture
 
@@ -111,7 +111,7 @@ API: POST /api/pass (prefs)
     ↓
 Repository: savePass(storage.pass) + savePrefs(storage.prefs)
     ↓
-Database: UPDATE pandalhoppers.pass + pandalhoppers.prefs
+Database: UPDATE pandalpass.pass + pandalpass.prefs
     ↓
 Response: Pass object + redirect to /pass
     ↓
@@ -212,14 +212,14 @@ Content-Type: application/json
 
 | State | Source | Persistence |
 |-------|--------|-------------|
-| `prefs` | Planner wizard step state | `localStorage` under `pandalhoppers.prefs` |
-| `pass` | Generated route or loaded from DB | `localStorage` under `pandalhoppers.pass` |
+| `prefs` | Planner wizard step state | `localStorage` under `pandalpass.prefs` |
+| `pass` | Generated route or loaded from DB | `localStorage` under `pandalpass.pass` |
 | `selection` | Route map clicked marker | In-memory only |
 | `toast` | Temporary messages | In-memory only |
 
 ### 2.5.2 Server-Side State
 
-- **Database**: MySQL with `pandalhoppers.prefs` and `pandalhoppers.pass` tables
+- **Database**: MySQL with `pandalpass.prefs` and `pandalpass.pass` tables
 - **Cache**: 5-minute in-memory cache in `repository.ts`
 - **Sessions**: http-only cookies (7-day expiration)
 - **No server-side sessions**: Stateless design

@@ -1,4 +1,4 @@
-# PandalHoppers: image inventory
+# PandalPass: image inventory
 
 ## Local files (in `public/`)
 
