@@ -3,6 +3,7 @@ import { Archivo_Black, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import PageLoader from "@/components/PageLoader";
 import { getProductData } from "@/lib/repository";
 import "./globals.css";
 
@@ -45,6 +46,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <a className="skip-link" href="#main">Skip to content</a>
         <Header siteName={data.site.name} />
         <main id="main">{children}</main>
+        <PageLoader />
         <Footer siteName={data.site.name} note={data.site.planningNote} />
       </body>
     </html>

@@ -36,7 +36,6 @@ export default async function HomePage() {
             </div>
             <p className="note">{data.site.planningNote}</p>
           </div>
-
         </div>
 
         <div className="shell hero-stats">
